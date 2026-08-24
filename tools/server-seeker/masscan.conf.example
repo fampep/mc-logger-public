@@ -1,0 +1,14 @@
+﻿# Masscan config for server-seeker (scanner mode).
+# Requires masscan installed; run with SEEKER_MASSCAN_SUDO=true on Linux.
+#
+# ONLY scan ranges you own or have explicit permission to probe.
+# Edit `range` before production use — the default is RFC5737 TEST-NET-3 (smoke test only).
+
+rate = 2000
+ports = 25565
+range = 203.0.113.0/24
+wait = 5
+
+# ServerSeekerV2-style full IPv4 (hours of traffic; abuse complaints if misused):
+# rate = 10000
+# range = 0.0.0.0-255.255.255.255

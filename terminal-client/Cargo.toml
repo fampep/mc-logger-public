@@ -1,0 +1,24 @@
+[package]
+name = "terminal-client"
+version = "0.1.0"
+edition = "2021"
+description = "Live event gateway between azalea-bot loggers and mc-discord-bot"
+
+[[bin]]
+name = "terminal-client"
+path = "src/main.rs"
+
+[[bin]]
+name = "mc-tail"
+path = "src/bin/mc-tail.rs"
+
+[dependencies]
+mc-stream = { path = "../mc-stream" }
+chrono = "0.4"
+tokio = { version = "1", features = ["full"] }
+eyre = "0.6"
+dotenvy = "0.15"
+serde_json = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+parking_lot = "0.12"

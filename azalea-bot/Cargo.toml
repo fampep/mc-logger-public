@@ -1,0 +1,70 @@
+[package]
+name = "azalea-bot"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# Both are git dependencies on purpose: azalea-viaversion tracks azalea's `main`
+# branch and will not build against the crates.io release.
+#
+# ViaVersion is what makes one binary work everywhere. Azalea speaks exactly one
+# protocol per build (0.16.0 = mc26.1), which is why Constantiam rejected it with
+# "Please use 1.7.2-1.21.10" — 26.1 is *newer* than anything it accepts. The
+# plugin runs ViaProxy underneath and translates, so the target version becomes a
+# runtime setting instead of a compile-time one.
+azalea = { git = "https://github.com/azalea-rs/azalea", features = ["packet-event"] }
+azalea-buf = { git = "https://github.com/azalea-rs/azalea" }
+azalea-viaversion = { git = "https://github.com/azalea-rs/azalea-viaversion" }
+rand = "0.9"
+
+tokio = { version = "1", features = ["full"] }
+eyre = "0.6"
+chrono = { version = "0.4", features = ["serde"] }
+tokio-postgres = { version = "0.7", features = [
+    "with-uuid-1",
+    "with-serde_json-1",
+    "with-chrono-0_4",
+] }
+serde_json = "1"
+uuid = { version = "1", features = ["v5"] }
+regex = "1"
+dotenvy = "0.15"
+mc-stream = { path = "../mc-stream" }
+serde = { version = "1", features = ["derive"] }
+
+# Temporary: fixes (1) a chat-component parsing bug in azalea-chat; (2) the
+# pathfinder silently failing past ±524k blocks (routine on anarchy servers)
+# because its section-position cache truncated to i16; (3) add_default_pathfinder
+# racing read_packets in PreUpdate with no ordering between them (azalea-rs/azalea#361);
+# and (4) a cancelled goto reviving itself via a late PathFoundEvent, a
+# still-computing stop, or a timeout re-patch (azalea-rs/azalea#360) — all of
+# which this bot's portal-navigation (stop_pathfinding/goto) can hit. None of
+# these are fixed on azalea-rs/azalea's main yet. Revert this patch block once
+# they land upstream.
+#
+# Every azalea-rs/azalea workspace member has to be patched together, not just
+# azalea-chat — patching one crate from a git source while its siblings (which
+# it depends on, like azalea-buf) still resolve from upstream gives two
+# incompatible copies of the same trait (AzBuf) in the build graph.
+[patch."https://github.com/azalea-rs/azalea"]
+azalea = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-auth = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-block = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-block-macros = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-brigadier = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-buf = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-buf-macros = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-chat = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-client = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-core = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-crypto = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-entity = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-inventory = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-inventory-macros = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-language = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-physics = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-protocol = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-protocol-macros = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-registry = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-registry-macros = { git = "https://github.com/fampep/azalea", branch = "main" }
+azalea-world = { git = "https://github.com/fampep/azalea", branch = "main" }

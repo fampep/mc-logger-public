@@ -1,0 +1,5 @@
+# azalea depends on simdnbt, which uses `#![feature(portable_simd)]` — that
+# feature gate is nightly-only, so the whole tree needs a nightly compiler.
+# Pinned here so `cargo build` picks the right toolchain without a `+nightly`.
+[toolchain]
+channel = "nightly"

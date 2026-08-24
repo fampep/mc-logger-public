@@ -1,0 +1,1319 @@
+{
+  ".env.2b2t": [
+    {
+      "example": "GTHESUPERMAN2 crushed cxky using GTHESUPERMAN's shaft",
+      "seen": 1,
+      "template": "%1$s crushed %2$s using GTHESUPERMAN's shaft",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "ciroko32 disintegrated _PIGY_ with /LSD",
+      "seen": 1,
+      "template": "%1$s disintegrated %2$s with /LSD",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "kkddasz disintegrated inthekhole with Gsmack's Stacked Sword",
+      "seen": 1,
+      "template": "%1$s disintegrated %2$s with Gsmack's Stacked Sword",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "BIG_NALON crushed Vinjameski using Diamond Sword",
+      "seen": 1,
+      "template": "%1$s crushed %2$s using Diamond Sword",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "DamnShePregnant crushed Itz_jaydenMC15 with Hard Lessons",
+      "seen": 1,
+      "template": "%1$s crushed %2$s with Hard Lessons",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Anatolian_ destroyed AKILL0 with ʙʀᴏᴡɴᴍᴇɴ Sword ₂₀₂₁",
+      "seen": 1,
+      "template": "%1$s destroyed %2$s with ʙʀᴏᴡɴᴍᴇɴ Sword ₂₀₂₁",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "_ymq crushed NYADOY using _ymq BIGGG DIIIIIIIH",
+      "seen": 1,
+      "template": "%1$s crushed %2$s using %1$s BIGGG DIIIIIIIH",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "___Kapo___ was gored to death by a zombie pigman wielding Golden Sword",
+      "seen": 11,
+      "template": "%1$s was gored to death by a %2$s pigman wielding %3$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "0000002_Armorbar violently combined Armorbars Stacked 32ks and pawpl",
+      "seen": 2,
+      "template": "%1$s violently combined Armorbars Stacked 32ks and %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "87ac disintegrated Gnaye with Tactic6's Punkbuster",
+      "seen": 1,
+      "template": "%1$s disintegrated %2$s with %3$s's Punkbuster",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "t0bii85 disintegrated iateyourtoast121 with",
+      "seen": 1,
+      "template": "%1$s disintegrated %2$s with",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Cookie2b2t crushed Itz_jaydenMC15 using Cookie's Sword",
+      "seen": 2,
+      "template": "%1$s crushed %2$s using Cookie's Sword",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "AutoCrysta1 crushed JoeyGarcia with .gg/bob2b",
+      "seen": 1,
+      "template": "%1$s crushed %2$s with .gg/bob2b",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Cookie2b2t destroyed Itz_jaydenMC15 with Cookie's Sword",
+      "seen": 1,
+      "template": "%1$s destroyed %2$s with Cookie's Sword",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "fetafor12345 crushed SteelW0rks using Double-bladed Lightsaber",
+      "seen": 1,
+      "template": "%1$s crushed %2$s using Double-bladed Lightsaber",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "0000002_Armorbar slayed pawpl using Armorbars Stacked 32ks",
+      "seen": 5,
+      "template": "%1$s slayed %2$s using Armorbars Stacked 32ks",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "malborrow drowned whilst fighting Theendoftime123",
+      "seen": 2,
+      "template": "%1$s %2$s whilst fighting %3$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "AutoCrysta1 liquified fr33g4m3r1 using",
+      "seen": 1,
+      "template": "%1$s liquified %2$s using",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "oppressionmaxxer destroyed nkriska131 with 𝓚𝓻𝔂𝓼𝓹𝔂'𝓼 𝓒𝓱𝓲𝓷𝓴 𝓟𝓮𝓷𝓮𝓽𝓻𝓪𝓽𝓸𝓻",
+      "seen": 1,
+      "template": "%1$s destroyed %2$s with 𝓚𝓻𝔂𝓼𝓹𝔂'𝓼 𝓒𝓱𝓲𝓷𝓴 𝓟𝓮𝓷𝓮𝓽𝓻𝓪𝓽𝓸𝓻",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "SaltyNew crushed 2fingersBTW with ₂₀₂₆ ʙᴀʀᴅ  ʜᴏᴏᴅᴏᴏꜱ ₂₀₂₆",
+      "seen": 1,
+      "template": "%1$s crushed %2$s with ₂₀₂₆ ʙᴀʀᴅ  ʜᴏᴏᴅᴏᴏꜱ ₂₀₂₆",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "JarnoRacer100 tripped, broke a bone or died somehow inside lava whilst fighting a zombie",
+      "seen": 2,
+      "template": "%1$s tripped, broke a bone or died somehow inside lava whilst fighting a %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "fetafor12345 destroyed AJAX1243 with Double-bladed Lightsaber",
+      "seen": 2,
+      "template": "%1$s destroyed %2$s with Double-bladed Lightsaber",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "0000002_Armorbar slayed krakenmc1 using Richard Kuklinski",
+      "seen": 1,
+      "template": "%1$s slayed %2$s using Richard Kuklinski",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "BroX1705 slayed camet using Alpha's Stacked 32k's",
+      "seen": 1,
+      "template": "%1$s slayed %2$s using Alpha's Stacked 32k's",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "0000002_Armorbar destroyed pawpl with Armorbars Stacked 32ks",
+      "seen": 7,
+      "template": "%1$s destroyed %2$s with Armorbars Stacked 32ks",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "EveningNews slayed Andres21pp using",
+      "seen": 3,
+      "template": "%1$s slayed %2$s using",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Deemon33 slayed DeemonWith2ez using R.K.O. OUT OF NO-WHERE",
+      "seen": 1,
+      "template": "%1$s slayed %2$s using R.K.O. OUT OF NO-WHERE",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "EveningNews crushed Fr0stSpike_ using",
+      "seen": 1,
+      "template": "%1$s crushed %2$s using",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Deity456 violently combined Alpha's Stacked 32k's and Mylast20bucks",
+      "seen": 4,
+      "template": "%1$s violently combined Alpha's Stacked 32k's and %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "cvs0 disintegrated jarbeefus348 with Diamond Sword",
+      "seen": 1,
+      "template": "%1$s disintegrated %2$s with Diamond Sword",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "EveningNews crushed Itz_jaydenMC15 using The News",
+      "seen": 1,
+      "template": "%1$s crushed %2$s using The News",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "crodg crushed HannahCheng with Stone Sword",
+      "seen": 1,
+      "template": "%1$s crushed %2$s with Stone Sword",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "AudiA2 crushed MonoOG3 using Wooden Sword",
+      "seen": 1,
+      "template": "%1$s crushed %2$s using Wooden Sword",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "WiderThanEurasia slayed GDJ using Schadenfreude",
+      "seen": 1,
+      "template": "%1$s slayed %2$s using Schadenfreude",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "KLoveer butchered CloudyAbyss with",
+      "seen": 1,
+      "template": "%1$s butchered %2$s with",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "inthekhole slayed balji using Cobblestone",
+      "seen": 1,
+      "template": "%1$s slayed %2$s using Cobblestone",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "ersatz__ violently combined  ™  and TDOctoboy",
+      "seen": 1,
+      "template": "%1$s violently combined  ™  and %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "XiJ1nPing violently combined Richard Kuklinski and _doof",
+      "seen": 1,
+      "template": "%1$s violently combined Richard Kuklinski and %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Inspector1212 crushed BlueAmberz with Shuhadaku",
+      "seen": 1,
+      "template": "%1$s crushed %2$s with Shuhadaku",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "EveningNews violently combined The News and Itz_jaydenMC15",
+      "seen": 1,
+      "template": "%1$s violently combined The News and %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "_ymq destroyed BlockyTrash with Mace",
+      "seen": 1,
+      "template": "%1$s destroyed %2$s with Mace",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "jerrybts assassinated GDJ using",
+      "seen": 2,
+      "template": "%1$s assassinated %2$s using",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "kkddasz destroyed inthekhole with Gsmack's Stacked Sword",
+      "seen": 1,
+      "template": "%1$s destroyed %2$s with Gsmack's Stacked Sword",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Cookie2b2t crushed Itz_jaydenMC15 with Cookie's Sword",
+      "seen": 1,
+      "template": "%1$s crushed %2$s with Cookie's Sword",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "EveningNews crushed Itz_jaydenMC15 with The News",
+      "seen": 1,
+      "template": "%1$s crushed %2$s with The News",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "SaltyNew crushed serabudabu2 using Ⓟ⑤'ⓢ",
+      "seen": 1,
+      "template": "%1$s crushed %2$s using Ⓟ⑤'ⓢ",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "0000002_Armorbar crushed pawpl with Armorbars Stacked 32ks",
+      "seen": 3,
+      "template": "%1$s crushed %2$s with Armorbars Stacked 32ks",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "oppressionmaxxer disintegrated 0_PF with Mace",
+      "seen": 1,
+      "template": "%1$s disintegrated %2$s with Mace",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "BroX1705 drowned in lava whilst fighting Giga_Vantys",
+      "seen": 1,
+      "template": "%1$s %2$s in lava whilst fighting %3$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "fetafor12345 disintegrated AJAX1243 with Double-bladed Lightsaber",
+      "seen": 1,
+      "template": "%1$s disintegrated %2$s with Double-bladed Lightsaber",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "0000002_Armorbar disintegrated pawpl with Armorbars Stacked 32ks",
+      "seen": 7,
+      "template": "%1$s disintegrated %2$s with Armorbars Stacked 32ks",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Dengermaks was reduced to lava by lava whilst fighting a zombie villager",
+      "seen": 1,
+      "template": "%1$s was reduced to lava by lava whilst fighting a %2$s villager",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "ChiefBeefLoko slayed OldForg using EastAlpha's Mace",
+      "seen": 1,
+      "template": "%1$s slayed %2$s using %3$s's Mace",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "ASTROL0YI crushed 2B2Toaru using Stone Axe",
+      "seen": 1,
+      "template": "%1$s crushed %2$s using Stone Axe",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "AutoCrysta1 slayed Mem0ryCrush using .gg/bob2b",
+      "seen": 1,
+      "template": "%1$s slayed %2$s using .gg/bob2b",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "0000002_Armorbar crushed pawpl using Armorbars Stacked 32ks",
+      "seen": 1,
+      "template": "%1$s crushed %2$s using Armorbars Stacked 32ks",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Lxiy destroyed StashCat with MacNeedle",
+      "seen": 1,
+      "template": "%1$s destroyed %2$s with MacNeedle",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "EveningNews violently combined  and Andres21pp",
+      "seen": 1,
+      "template": "%1$s violently combined  and %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Deity456 crushed Mylast20bucks with 𝚃𝚎𝚊𝚖 𝙽𝙷𝙷 𝙼𝚊𝚌𝚎",
+      "seen": 1,
+      "template": "%1$s crushed %2$s with 𝚃𝚎𝚊𝚖 𝙽𝙷𝙷 𝙼𝚊𝚌𝚎",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "fetafor12345 violently combined Double-bladed Lightsaber and SteelW0rks",
+      "seen": 1,
+      "template": "%1$s violently combined Double-bladed Lightsaber and %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Deity456 crushed Mylast20bucks with Alpha's Stacked 32k's",
+      "seen": 2,
+      "template": "%1$s crushed %2$s with Alpha's Stacked 32k's",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "pawpl combusted whilst fighting 0000002_Armorbar",
+      "seen": 4,
+      "template": "%1$s combusted whilst fighting %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "EveningNews destroyed Itz_jaydenMC15 with The News",
+      "seen": 1,
+      "template": "%1$s destroyed %2$s with The News",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "kqqe crushed Arabic_Airlines with Netherite Sword",
+      "seen": 1,
+      "template": "%1$s crushed %2$s with Netherite Sword",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "DamnShePregnant disintegrated Itz_jaydenMC15 with Hard Lessons",
+      "seen": 1,
+      "template": "%1$s disintegrated %2$s with Hard Lessons",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Prebbal assassinated JamesIsAlive with",
+      "seen": 1,
+      "template": "%1$s assassinated %2$s with",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "0Metro destroyed 0hStashButler with ₂₀₂₆ ʙᴀʀᴅ  ᴄʜᴏᴘ ₂₀₂₆",
+      "seen": 1,
+      "template": "%1$s destroyed %2$s with ₂₀₂₆ ʙᴀʀᴅ  ᴄʜᴏᴘ ₂₀₂₆",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "pawpl burned to death whilst fighting 0000002_Armorbar",
+      "seen": 7,
+      "template": "%1$s burned to death whilst fighting %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "MikeyMa slayed InfamousMeL using Anakin's",
+      "seen": 1,
+      "template": "%1$s slayed %2$s using Anakin's",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "ShayBox disintegrated JoeyGarcia with Arkhalis",
+      "seen": 1,
+      "template": "%1$s disintegrated %2$s with Arkhalis",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Deemon33 violently combined R.K.O. OUT OF NO-WHERE and DeemonWith2ez",
+      "seen": 1,
+      "template": "%1$s violently combined R.K.O. OUT OF NO-WHERE and %2$s",
+      "why": "names two players — could be a kill in either direction"
+    }
+  ],
+  ".env.6b6t": [
+    {
+      "example": "GoldenStrikerKni quit.",
+      "seen": 63,
+      "template": "%1$s quit.",
+      "why": "no wording any existing death template uses"
+    }
+  ],
+  ".env.9b9t": [
+    {
+      "example": "BRcearth tried to escape Lavinator_ by jumping off a bridge",
+      "seen": 5,
+      "template": "%1$s tried to escape %2$s by jumping off a bridge",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "ToastedAvacado was wiped off of the face of the fucking earth by mrdeath25",
+      "seen": 11,
+      "template": "%1$s was wiped off of the face of the fucking earth by %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "ToastedAvacado got ez'd by mrdeath25",
+      "seen": 16,
+      "template": "%1$s got ez'd by %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Dagule_ hugged the burning cross in their yard",
+      "seen": 4,
+      "template": "%1$s hugged the burning cross in their yard",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "RipperSan was involved in 9/11 as the plane",
+      "seen": 1,
+      "template": "%1$s was involved in 9/11 as the plane",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "Retro_nova117 decided to push a Jew named Dagule_ into lava for a laugh",
+      "seen": 1,
+      "template": "%1$s decided to push a Jew named %2$s into lava for a laugh",
+      "why": "names two players — could be a kill in either direction"
+    }
+  ],
+  ".env.anarchy": [
+    {
+      "example": "💀 0boz  succumbed to the cursed transformation of a Zombie villager while fighting Zombie",
+      "seen": 1,
+      "template": "💀 %1$s  succumbed to the cursed transformation of a %2$s villager while fighting %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 PorscheGoesBrr  was skewered by a falling stalactite while fighting Pawianek",
+      "seen": 1,
+      "template": "💀 %1$s  was skewered by %3$s while fighting %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 Ompi_14  was overwhelmed by Vindicator and their relentless Iron Axe while escaping ur_moms_a_horse",
+      "seen": 1,
+      "template": "💀 %1$s  was overwhelmed by Vindicator and their relentless Iron Axe while escaping %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 artoalp  hit the ground too hard while fighting Zombie",
+      "seen": 2,
+      "template": "💀 %1$s  hit the ground too hard while fighting %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 LewisGmr  hit the ground too hard while escaping Void_OSO",
+      "seen": 1,
+      "template": "💀 %1$s  hit the ground too hard while escaping %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 PorscheGoesBrr  was impaled on stalagmite while fighting Pawianek",
+      "seen": 2,
+      "template": "💀 %1$s  was impaled on stalagmite while fighting %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 Pen_  died by osky_silencedval  mighty hand while escaping osky_silencedval",
+      "seen": 1,
+      "template": "💀 %1$s  died by %2$s  mighty hand while escaping %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 osky_silencedval  fell out of the world while escaping NullSrEnty",
+      "seen": 2,
+      "template": "💀 %1$s  fell out of the world while escaping %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 madman_jose  met their end at the hands of Vex and their vex minion armed with Iron Sword while running away from Skeleton",
+      "seen": 1,
+      "template": "💀 %1$s  met their end at the hands of Vex and their vex minion armed with Iron Sword while running away from %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 kaykaycoolice  drowned while running away from Skeleton",
+      "seen": 1,
+      "template": "💀 %1$s  drowned while running away from %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 CardFell  burned to death while running away from Skeleton",
+      "seen": 1,
+      "template": "💀 %1$s  burned to death while running away from %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 yellowevov  was turned into a zombie by Zombie villager and their cursed Arrow while running away from Breeze",
+      "seen": 1,
+      "template": "💀 %1$s  was turned into a zombie by %2$s villager and their cursed Arrow while running away from Breeze",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 PorscheGoesBrr  was skewered by a falling stalactite while escaping Pawianek",
+      "seen": 5,
+      "template": "💀 %1$s  was skewered by %3$s while escaping %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 Pen_  blew up while fighting ur_moms_a_horse",
+      "seen": 1,
+      "template": "💀 %1$s  blew up while fighting %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 .Erusishere  succumbed to the cursed transformation of a Zombie villager while running away from Zombie",
+      "seen": 1,
+      "template": "💀 .%1$s  succumbed to the cursed transformation of a %2$s villager while running away from %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "💀 kaykaycoolice  was ensnared and consumed by a Spider while running away from Skeleton",
+      "seen": 1,
+      "template": "💀 %1$s  was ensnared and consumed by a Spider while running away from %2$s",
+      "why": "names two players — could be a kill in either direction"
+    }
+  ],
+  ".env.anarchyac": [
+    {
+      "example": "- sergentskipy (6)",
+      "seen": 2,
+      "template": "- %1$s (6)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- VoidBitGaming (8)",
+      "seen": 2,
+      "template": "- %1$s (8)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- Siemdiemdiem (3)",
+      "seen": 3,
+      "template": "- %1$s (3)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- MatouMiaou (13)",
+      "seen": 5,
+      "template": "- %1$s (13)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- _Hamburgerman (9)",
+      "seen": 1,
+      "template": "- %1$s (9)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- MatouMiaou (10)",
+      "seen": 2,
+      "template": "- %1$s (10)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- _Hamburgerman (11)",
+      "seen": 4,
+      "template": "- %1$s (11)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- .genevailias (15)",
+      "seen": 1,
+      "template": "- .%1$s (15)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- GoldenYellow_ (2)",
+      "seen": 2,
+      "template": "- %1$s (2)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- LunaBloss0m (15)",
+      "seen": 4,
+      "template": "- %1$s (15)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- HandsomeJack52 (14)",
+      "seen": 4,
+      "template": "- %1$s (14)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- Siemdiemdiem (12)",
+      "seen": 3,
+      "template": "- %1$s (12)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- x2han (1)",
+      "seen": 10,
+      "template": "- %1$s (1)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- Not_Today3341 (7)",
+      "seen": 1,
+      "template": "- %1$s (7)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- SignBook (5)",
+      "seen": 1,
+      "template": "- %1$s (5)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "- .genevailias (1)",
+      "seen": 1,
+      "template": "- .%1$s (1)",
+      "why": "no wording any existing death template uses"
+    }
+  ],
+  ".env.minewind": [
+    {
+      "example": "Gonkshackle beefed Sashee for 2!",
+      "seen": 2,
+      "template": "%1$s beefed %2$s for 2!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "WastedWitch beefed CoralCas0ade for 11!",
+      "seen": 1,
+      "template": "%1$s beefed %2$s for 11!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Gonkshackle beefed SuperiorSole32 for 4!",
+      "seen": 2,
+      "template": "%1$s beefed %2$s for 4!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "LavaGoblin84 beefed claunperc for 1!",
+      "seen": 3,
+      "template": "%1$s beefed %2$s for 1!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "ChudOut beefed KachokBariga for 5!",
+      "seen": 1,
+      "template": "%1$s beefed %2$s for 5!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "_XpoofX_ beefed CoralCas0ade for 13!",
+      "seen": 1,
+      "template": "%1$s beefed %2$s for 13!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "StormGuard0679 was forked by StormGuard0679",
+      "seen": 3,
+      "template": "%1$s was forked by %1$s",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "Explainer: Cake On Kill (Weapon+Tool): Spawns a cake on kill; eating it restores souls.",
+      "seen": 1,
+      "template": "%1$s: Cake On Kill (Weapon+Tool): Spawns a %2$s on kill; eating it restores souls.",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "ChudOut beefed KachokBariga for 6!",
+      "seen": 2,
+      "template": "%1$s beefed %2$s for 6!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "MiniMEnion was forked by Airy12",
+      "seen": 1,
+      "template": "%1$s was forked by %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "VuaMoi beefed CoralCas0ade for 29!",
+      "seen": 1,
+      "template": "%1$s beefed %2$s for 29!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Gonkshackle beefed LavaGoblin84 for 71!",
+      "seen": 1,
+      "template": "%1$s beefed %2$s for 71!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Gamgammy beefed KachokBariga for 10!",
+      "seen": 2,
+      "template": "%1$s beefed %2$s for 10!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "seb496 was zeused by PrinceLeao",
+      "seen": 3,
+      "template": "%1$s was zeused by %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Deggmaster pwned Hotythedogy for 3!",
+      "seen": 3,
+      "template": "%1$s pwned %2$s for 3!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Gonkshackle beefed LavaGoblin84 for 18!",
+      "seen": 2,
+      "template": "%1$s beefed %2$s for 18!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "VuaMoi beefed KachokBariga for 3!",
+      "seen": 2,
+      "template": "%1$s beefed %2$s for 3!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "Katty67 pwned MizoQc for 4!",
+      "seen": 2,
+      "template": "%1$s pwned %2$s for 4!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "killerboy68 was chickened by x_pla",
+      "seen": 1,
+      "template": "%1$s was chickened by %2$s",
+      "why": "names two players — could be a kill in either direction"
+    }
+  ],
+  ".env.oldfrog": [
+    {
+      "example": "thecataclysmo was pushed into lava by Wither",
+      "seen": 1,
+      "template": "%1$s was pushed into lava by %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "byCJen was fisted by Armorbar",
+      "seen": 3,
+      "template": "%1$s was fisted by %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "cheremuha96 got fucked by FlappyChiken with an end crystal",
+      "seen": 1,
+      "template": "%1$s got fucked by %2$s with an end crystal",
+      "why": "names two players — could be a kill in either direction"
+    }
+  ],
+  ".env.rempolon": [
+    {
+      "example": "████████  bxrty_ just",
+      "seen": 21,
+      "template": "████████  %1$s just",
+      "why": "no wording any existing death template uses"
+    }
+  ],
+  ".env.uneasyvanilla": [
+    {
+      "example": "zdbayrak58lol 🔰: wb",
+      "seen": 6,
+      "template": "%1$s 🔰: wb",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "zdbayrak58lol 🔰: hi",
+      "seen": 1,
+      "template": "%1$s 🔰: hi",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "zdbayrak58lol 🔰: how to tag an item in chat?",
+      "seen": 1,
+      "template": "%1$s 🔰: how to tag an item in chat?",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "CaptnCrushNutz → You: yo",
+      "seen": 1,
+      "template": "%1$s → You: yo",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "zdbayrak58lol 🔰: pullin",
+      "seen": 1,
+      "template": "%1$s 🔰: pullin",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "zdbayrak58lol 🔰: gn",
+      "seen": 1,
+      "template": "%1$s 🔰: gn",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "zdbayrak58lol 🔰: hey",
+      "seen": 1,
+      "template": "%1$s 🔰: hey",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "zdbayrak58lol 🔰: cover up ill pull",
+      "seen": 1,
+      "template": "%1$s 🔰: cover up ill pull",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "zdbayrak58lol 🔰: in the nether",
+      "seen": 1,
+      "template": "%1$s 🔰: in the nether",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "zdbayrak58lol 🔰: alr yw :)",
+      "seen": 1,
+      "template": "%1$s 🔰: alr yw :)",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "zdbayrak58lol 🔰: shall we go or?",
+      "seen": 1,
+      "template": "%1$s 🔰: shall we go or?",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "zdbayrak58lol 🔰: ty",
+      "seen": 3,
+      "template": "%1$s 🔰: ty",
+      "why": "no wording any existing death template uses"
+    }
+  ],
+  ".env.vanillaplus": [
+    {
+      "example": "🥇 <YTQuartz> WOAH WOAH WAOH",
+      "seen": 1,
+      "template": "🥇 <%1$s> WOAH WOAH WAOH",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> yes you were with Ilurkin and subarujaxy",
+      "seen": 1,
+      "template": "🥇 <%1$s> yes you were with Ilurkin and subarujaxy",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> run hole bro",
+      "seen": 1,
+      "template": "🥇 <%1$s> run hole bro",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> angrycain how bout u js totem.",
+      "seen": 1,
+      "template": "🥇 <%1$s> %2$s how bout u js totem.",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "010k blacklisted Valentiens for 'Blacklist Evasion (Mayze)'",
+      "seen": 1,
+      "template": "%1$s blacklisted %2$s for 'Blacklist Evasion (Mayze)'",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> [Skull of Dynation]",
+      "seen": 1,
+      "template": "🥇 <%1$s> [Skull of %2$s]",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "⭐ MVP: RhaegarVI",
+      "seen": 1,
+      "template": "⭐ %1$s: RhaegarVI",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> V1xu why are you talking, ur the one legit 5v1ing me",
+      "seen": 1,
+      "template": "🥇 <%1$s> %2$s why are you talking, ur the one legit 5v1ing me",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "ThunderOps unblacklisted Lissperiom",
+      "seen": 1,
+      "template": "%1$s unblacklisted Lissperiom",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "010k blacklisted 9373 for 'Blacklist Evasion (Tenisn)'",
+      "seen": 1,
+      "template": "%1$s blacklisted %2$s for 'Blacklist Evasion (Tenisn)'",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> auqaa_ who tf is you!!!!!",
+      "seen": 1,
+      "template": "🥇 <%1$s> %2$s who tf is you!!!!!",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> im on 20 crystals",
+      "seen": 1,
+      "template": "🥇 <%1$s> im on 20 crystals",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> [YTQuartz's Inventory]",
+      "seen": 2,
+      "template": "🥇 <%1$s> [%1$s's Inventory]",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> gotta be 1",
+      "seen": 1,
+      "template": "🥇 <%%2$s$s> gotta be %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> V1xu ur the one snaking me in a meta",
+      "seen": 1,
+      "template": "🥇 <%1$s> %2$s ur the one snaking me in a meta",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> no Bloccks",
+      "seen": 1,
+      "template": "🥇 <%1$s> no %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> ballhogracoon ik im so cool right",
+      "seen": 1,
+      "template": "🥇 <%1$s> %2$s ik im so cool right",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "⭐ MVP: Gradytism",
+      "seen": 6,
+      "template": "⭐ %1$s: %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "PandaBerk blacklisted 7vall for 'Hacking/Cheating - 4th Offense'",
+      "seen": 1,
+      "template": "%1$s blacklisted 7vall for 'Hacking/Cheating - 4th Offense'",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🎖 Medals: +76",
+      "seen": 1,
+      "template": "🎖 %1$s: +76",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> holy 2v1",
+      "seen": 1,
+      "template": "🥇 <%1$s> holy 2v1",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> \"lil your no stop snaking\" 5 year old typa grammar.",
+      "seen": 1,
+      "template": "🥇 <%1$s> \"lil your no stop snaking\" 5 year old typa grammar.",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> YIPEEE",
+      "seen": 1,
+      "template": "🥇 <%1$s> YIPEEE",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> auqaa_ I DONT KNOW YOUUUUUUUU",
+      "seen": 1,
+      "template": "🥇 <%1$s> %2$s I DONT KNOW YOUUUUUUUU",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> \\",
+      "seen": 1,
+      "template": "🥇 <%1$s> \\",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "pluwuu warned _revered for 'chat spam (change name of item or dont use)'",
+      "seen": 1,
+      "template": "%1$s warned %2$s for 'chat spam (change name of item or dont use)'",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> nothing personal",
+      "seen": 1,
+      "template": "🥇 <%1$s> nothing personal",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> wtf",
+      "seen": 1,
+      "template": "🥇 <%1$s> wtf",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "Status: Closes in 60s",
+      "seen": 7,
+      "template": "%1$s: Closes in 60s",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> ReformedKellan ifought u with like 20 crystals",
+      "seen": 1,
+      "template": "🥇 <%1$s> %2$s ifought u with like 20 crystals",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🎖 Medals: +35",
+      "seen": 1,
+      "template": "🎖 %1$s: +35",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> W 5v1",
+      "seen": 1,
+      "template": "🥇 <%1$s> W 5v1",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "Zuoro shows his inventory!",
+      "seen": 10,
+      "template": "%1$s shows his inventory!",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🗡 Kills: 6",
+      "seen": 1,
+      "template": "🗡 %1$s: 6",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> S6BER cool",
+      "seen": 1,
+      "template": "🥇 <%1$s> %2$s cool",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "ThunderOps unblacklisted Qxust",
+      "seen": 3,
+      "template": "%1$s unblacklisted %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "010k blacklisted Saturn_runner for 'Blacklist Evasion'",
+      "seen": 1,
+      "template": "%1$s blacklisted Saturn_runner for 'Blacklist Evasion'",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🎖 Medals: +46",
+      "seen": 3,
+      "template": "🎖 %1$s: +46",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "blorpdaddy shows his Enderchest!",
+      "seen": 8,
+      "template": "%1$s shows his Enderchest!",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> someone is mad",
+      "seen": 1,
+      "template": "🥇 <%1$s> someone is mad",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> calling me a loser lol",
+      "seen": 1,
+      "template": "🥇 <%1$s> calling me a loser lol",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "SullyGotScammed → me: r u 67?",
+      "seen": 2,
+      "template": "%1$s → me: r u 67?",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "PandaBerk blacklisted WazLOL for 'Blacklist Evasion [snooh]'",
+      "seen": 1,
+      "template": "%1$s blacklisted %2$s for 'Blacklist Evasion [snooh]'",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> tps",
+      "seen": 1,
+      "template": "🥇 <%1$s> tps",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🎖 Medals: +50",
+      "seen": 1,
+      "template": "🎖 %1$s: +50",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "010k blacklisted EnderPink for '(evasion, qblast)'",
+      "seen": 1,
+      "template": "%1$s blacklisted EnderPink for '(evasion, qblast)'",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🗡 Kills: 3",
+      "seen": 2,
+      "template": "🗡 %1$s: 3",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> and ur legit scared to hole me",
+      "seen": 1,
+      "template": "🥇 <%1$s> and ur legit scared to hole me",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> lol u just outgeared me.",
+      "seen": 1,
+      "template": "🥇 <%1$s> lol u just outgeared me.",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> doofus",
+      "seen": 1,
+      "template": "🥇 <%1$s> doofus",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> woah",
+      "seen": 1,
+      "template": "🥇 <%1$s> woah",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> good boy",
+      "seen": 1,
+      "template": "🥇 <%1$s> good boy",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> gg",
+      "seen": 1,
+      "template": "🥇 <%1$s> gg",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "[Gradytism] %alonsotags_tag_chat%<Gradytism> [Ping Equalizer] Added 1000000000ms delay.",
+      "seen": 1,
+      "template": "[%1$s] %alonsotags_tag_chat%<%1$s> [Ping Equalizer] Added 1000000000ms delay.",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🎖 Medals: +36",
+      "seen": 1,
+      "template": "🎖 %1$s: +36",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> wise run",
+      "seen": 1,
+      "template": "🥇 <%1$s> wise run",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🗡 Kills: 2",
+      "seen": 2,
+      "template": "🗡 %1$s: 2",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "PandaBerk blacklisted qnqe for 'Blacklist Evasion [blackboytae]'",
+      "seen": 1,
+      "template": "%1$s blacklisted %2$s for 'Blacklist Evasion [blackboytae]'",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> yo Dynation",
+      "seen": 1,
+      "template": "🥇 <%1$s> yo %2$s",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> Bloccks.",
+      "seen": 1,
+      "template": "🥇 <%1$s> %2$s.",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> i suck",
+      "seen": 1,
+      "template": "🥇 <%1$s> i suck",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> S6BER u mad bro?",
+      "seen": 1,
+      "template": "🥇 <%1$s> %2$s u mad bro?",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "MrNugg3tz blacklisted mbzm for 'Blacklist Evasion'",
+      "seen": 1,
+      "template": "%1$s blacklisted %2$s for 'Blacklist Evasion'",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "🥇 <YTQuartz> CMON",
+      "seen": 1,
+      "template": "🥇 <%1$s> CMON",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "pluwuu warned DarkCloud0 for 'Chatflood'",
+      "seen": 1,
+      "template": "%1$s warned %2$s for 'Chatflood'",
+      "why": "names two players — could be a kill in either direction"
+    },
+    {
+      "example": "[dyelytra] %alonsotags_tag_chat%<dyelytra> are you scarfed",
+      "seen": 1,
+      "template": "[%1$s] %alonsotags_tag_chat%<%1$s> are you scarfed",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "SullyGotScammed → me: r u 76?",
+      "seen": 1,
+      "template": "%1$s → me: r u 76?",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🗡 Kills: 4",
+      "seen": 1,
+      "template": "🗡 %1$s: 4",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🥇 <YTQuartz> HOLY",
+      "seen": 1,
+      "template": "🥇 <%1$s> HOLY",
+      "why": "no wording any existing death template uses"
+    },
+    {
+      "example": "🗡 Kills: 1",
+      "seen": 1,
+      "template": "🗡 %%2$s$s: %2$s",
+      "why": "names two players — could be a kill in either direction"
+    }
+  ],
+  "_readme": [
+    "Death messages discover found but would not add by itself.",
+    "Check the direction, then move the template into custom_deaths.json.",
+    "A line naming two players is usually a kill: if the killer comes",
+    "first, use {\"template\": ..., \"killer\": 1, \"victim\": 2}.",
+    "Entries here are rewritten every pass; deleting one is harmless."
+  ]
+}

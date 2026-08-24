@@ -1,0 +1,45 @@
+# Secrets — never commit. Both bots read config from .env at runtime.
+.env
+.env.local
+.env.*
+*.env
+!.env.example
+!.env.*.example
+
+# Microsoft auth token cache (azalea + mineflayer)
+.minecraft-auth/
+.minecraft/
+
+# Rust
+target/
+target-*/
+
+# Local logger output
+*.laptop.out.log
+*.laptop.err.log
+*.out.log
+*.err.log
+logs/
+
+# Node
+node_modules/
+dist/
+npm-debug.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Scratch. One-off patch scripts, copies of deployed sources pulled down to
+# diff against, ad-hoc SQL and status dumps — all applied at the time and worth
+# nothing afterwards. The real tooling lives in deploy/.
+.tmp/
+.tmp_*
+_tmp_*
+**/_vps_*.rs
+azalea-bot/_*.sh
+azalea-bot/_*.py
+azalea-bot/_*.log
+mc-discord-bot/_eventbridge_deploy/

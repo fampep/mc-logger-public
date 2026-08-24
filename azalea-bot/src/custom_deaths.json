@@ -1,0 +1,1499 @@
+{
+  "2b2t": [
+    "%1$s swam out of a waterfall and fell to death.",
+    "%1$s sprained their entire body and instantly died.",
+    "%1$s tripped too hard and died.",
+    "%1$s fell to death.",
+    "%1$s broke their neck, and the rest of their body.",
+    "%1$s fell and crushed their insides with their legbones.",
+    "%1$s fell and crushed their lungs with their legbones.",
+    "%1$s fell and was reduced into a jittering flesh heap.",
+    "%1$s tried to swim in lava and didn't get out quick enough.",
+    "%1$s suicide bombed with an end crystal",
+    "%1$s suffocated in water.",
+    "%1$s forgot to breath air.",
+    "%1$s drowned.",
+    "%1$s was assassinated by %2$s wielding %3$s",
+    "%1$s was assassinated by %2$s.",
+    "%1$s was thrown off a cliff by %2$s",
+    "%1$s was smashed to death by %2$s.",
+    "%1$s was demolished by %2$s.",
+    "%1$s was slashed into gibs by %2$s wielding %3$s",
+    "%1$s was stretched to death by %2$s.",
+    "%1$s was destroyed by %2$s.",
+    "%1$s was beaten into meaty pulp by %2$s and died painfully.",
+    "%1$s couldn't swim up quick enough.",
+    "%1$s melted in lava.",
+    "%1$s melted in lava",
+    "%1$s lost grip of vines and fell to death.",
+    "%1$s broke apart from falling.",
+    "%1$s tripped, broke a bone or died somehow inside lava.",
+    "%1$s died inside a wall.",
+    "%1$s was brutally ripped apart by %2$s.",
+    "%1$s was ripped apart by %2$s and instantly died.",
+    "%1$s was pummeled into multiple parts by %2$s and died slowly.",
+    "%1$s fell and was reduced into a jittering flesh pile.",
+    "%1$s was killed to death by %2$s.",
+    "%1$s was reduced to lava by lava.",
+    "%1$s was fisted to death by %2$s.",
+    "%1$s was messed up by %2$s.",
+    "%1$s hit the ground too hard.",
+    "%1$s was carefully killed by %2$s.",
+    "%1$s was bitten to death by %2$s.",
+    "%1$s became lava.",
+    "%1$s was exploded by %2$s.",
+    "%1$s was trampled to death by %2$s.",
+    "%1$s choked to death.",
+    "%1$s drowned in lava.",
+    "%1$s was obliterated by %2$s.",
+    "%1$s withered away.",
+    "%1$s lost grip of a ladder and fell to death.",
+    "%1$s was murdered by skeletons.",
+    "%1$s burned to death.",
+    "%1$s was buried alive.",
+    "%1$s was blown to pieces by %2$s.",
+    "%1$s was smashed into a boneless flesh pile by %2$s.",
+    "%1$s was ripped and smashed apart by %2$s.",
+    "%1$s destroyed themselves with an end crystal",
+    "%1$s was beaten to death by %2$s.",
+    "%1$s fell to death after being pushed by %2$s",
+    "%1$s died inside lava somehow whilst fighting %2$s",
+    "%1$s died inside lava somehow.",
+    "%1$s burned up in lava.",
+    "%1$s smashed themselves and died trying to fly with elytra.",
+    "%1$s was consumed by living magma.",
+    "%1$s was removed by %2$s with %3$s",
+    "%1$s was turned into bloody rain by %2$s with %3$s",
+    "%1$s was deleted by %2$s with %3$s",
+    "%1$s was violently assassinated by %2$s with an end crystal",
+    "%1$s was assassinated by %2$s using %3$s",
+    "%1$s was pummeled into multiple parts by %2$s wielding %3$s and died slowly.",
+    "%1$s was ripped apart by %2$s wielding %3$s and instantly died.",
+    "%1$s was deconstructed by %2$s wielding %3$s",
+    "%1$s was destroyed by %2$s wielding %3$s",
+    "%1$s was smashed into a boneless flesh pile by %2$s wielding %3$s",
+    "%1$s was demolished by %2$s wielding %3$s",
+    "%1$s was beaten to death by %2$s wielding %3$s",
+    "%1$s drank themselves dead.",
+    "%1$s was boned to death.",
+    "%1$s blew themselves up with an end crystal",
+    "%1$s violently ended their own life with an end crystal",
+    "%1$s was violently severed by explosives.",
+    "%1$s was turned into red dust by an explosion.",
+    "%1$s turned into ash whilst fighting %2$s",
+    "%1$s was gibbed apart by %2$s punches.",
+    "%1$s was mauled to pieces by %2$s.",
+    "%1$s was bombarded apart by %2$s.",
+    "%1$s was torn apart by %2$s.",
+    "%1$s was violently severed into pieces by %2$s.",
+    "%1$s was turned into red dust by %2$s with %3$s",
+    "%1$s was beaten into meaty pulp by %2$s wielding %3$s and died painfully.",
+    "%1$s was shot by %2$s and died instantly.",
+    "%1$s was blown up by %2$s with %3$s",
+    "%1$s was destroyed by %2$s with %3$s",
+    "%1$s melted by fire whilst fighting %2$s",
+    "%1$s committed suicide with an end crystal",
+    {
+      "killer": 1,
+      "note": "Killer-first: 'SaltyNew assassinated JamesIsAlive with <weapon>'",
+      "template": "%1$s assassinated %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first",
+      "template": "%1$s reduced %2$s into a bloody meat pile with just fists.",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'Suuppi_ exterminated MrColvin with <weapon>'",
+      "template": "%1$s exterminated %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first, and the unarmed twin of the 'assassinated ... with %3$s' line",
+      "template": "%1$s assassinated %2$s using just their hands.",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'bohan666mc terminated chronicaly using Netherite Axe'. Distinct from the 'exterminated ... with %3$s' line, which is a different message.",
+      "template": "%1$s terminated %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'bohan666mc butchered SigmaBase5 using Netherite Axe'",
+      "template": "%1$s butchered %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'Arabic_Airlines executed cld using Diamond Pickaxe'. Found by discover, which held it for review rather than guessing the direction.",
+      "template": "%1$s executed %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first, active voice: '0not demolished etrenyty using Eternal Wrath'. Distinct from the victim-first 'was demolished by %2$s' lines above — same verb, opposite direction.",
+      "template": "%1$s demolished %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'Xcwef mashed InfamousMeL with <weapon>'. The weapon is sometimes blank on this server, which %3$s still matches.",
+      "template": "%1$s mashed %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'XiJ1nPing killed Furious_virus using Connor's Sword'. Cannot collide with vanilla's 'was killed by' lines — %1$s admits no spaces, so 'X was killed' never fills the first slot.",
+      "template": "%1$s killed %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'pxb did something horrible to Furious_virus using Alpha's Stacked 32k's'. The weapon name carries apostrophes, which survive regex escaping.",
+      "template": "%1$s did something horrible to %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'sylvoria pummeled JamesIsAlive to death using Diamond Sword'. Not to be confused with the victim-first 'was pummeled into multiple parts by %2$s' lines above.",
+      "template": "%1$s pummeled %2$s to death using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first, and the only template whose victim is not in slot 2: the item comes first. Covers both 'shoved a fist down X's throat.' and the blank-item form 'shoved    down X's throat.'",
+      "template": "%1$s shoved %2$s down %3$s's throat.",
+      "victim": 3
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'bezzma tore quicbot apart with <blank>'. The weapon renders as nothing on this server, which is why item slots are allowed to match empty.",
+      "template": "%1$s tore %2$s apart with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'bezzma annihilated Barnika18 using <blank>'",
+      "template": "%1$s annihilated %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'Xcwef demolished JamesIsAlive with <blank>'. The 'using' variant of this verb is separate, and both differ again from the victim-first 'was demolished by %2$s'.",
+      "template": "%1$s demolished %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'Reinfection unmade FoulZXC using Netherite Sword'",
+      "template": "%1$s unmade %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'Darkpiston ravaged HeRu156 with >>Darkpiston´s Sword<<'",
+      "template": "%1$s ravaged %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'Mrwilo assassinated MCGCenker using Alpha's Stacked 32k's'. The 'with %3$s' form of this verb is separate, as is the victim-first 'was assassinated by %2$s using %3$s'.",
+      "template": "%1$s assassinated %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'ItsRaffalix separated Ay_pro9 using Diamond Sword'",
+      "template": "%1$s separated %2$s using %3$s",
+      "victim": 2
+    },
+    "%1$s forgot to eat.",
+    "%1$s was bombarded into a fiery death by %2$s.",
+    {
+      "killer": 1,
+      "note": "Killer-first with the item in slot 2, like the 'shoved %2$s down %3$s's throat' line: 'honguito5833 shoved Netherite Sword inside Bargoum3450'.",
+      "template": "%1$s shoved %2$s inside %3$s",
+      "victim": 3
+    },
+    {
+      "killer": 1,
+      "note": "The 'using' form of mashed; the 'with' form is separate.",
+      "template": "%1$s mashed %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first: 'Bryan37685 ruined Furious_virus using Join The Highland! v2.0'",
+      "template": "%1$s ruined %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s put their fists inside %2$s violently.",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Victim in slot 3, like the 'shoved %2$s down %3$s's throat' line: what is put through them comes first.",
+      "template": "%1$s put %2$s through %3$s's body.",
+      "victim": 3
+    },
+    {
+      "killer": 1,
+      "template": "%1$s murdered %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s murdered %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s destroyed %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s broke %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s slayed %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s ruined %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s cracked %2$s open using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Same kill as the %3$s form, but 2b2t sometimes sends no weapon and no trailing space, so 'open using %3$s' cannot match.",
+      "template": "%1$s cracked %2$s open using",
+      "victim": 2
+    },
+    "%1$s was stung to death whilst fighting %2$s",
+    {
+      "killer": 1,
+      "template": "%1$s chopped %2$s up using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s chopped %2$s up with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "The 'with' twin of the 'to death using %3$s' line.",
+      "template": "%1$s pummeled %2$s to death with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s slapped %2$s to death.",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Longer than the generic 'separated %2$s with %3$s', so it wins where it applies.",
+      "template": "%1$s separated %2$s with their bare hands.",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s separated %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Distinct from 'broke %2$s with %3$s' — that one needs a ' with ', this one has none.",
+      "template": "%1$s broke their fists on %2$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s broke %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s annihilated %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s exterminated %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s crumbled %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s crumbled %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s tore %2$s apart using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s cracked %2$s open with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s disintegrated %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s ravaged %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Active voice. The victim-first 'was fisted to death by %2$s.' is a separate line.",
+      "template": "%1$s fisted %2$s to death.",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s terminated %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s butchered %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s cut %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s killed %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s unmade %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s wrecked %2$s using %3$s",
+      "victim": 2
+    },
+    "%1$s was pushed off of vines by %2$s",
+    "%1$s was utterly destroyed by %2$s with %3$s",
+    "%1$s was blown apart by %2$s with %3$s",
+    "%1$s burned apart whilst fighting %2$s",
+    "%1$s became lava whilst fighting %2$s",
+    "%1$s couldn't swim up quick enough whilst fighting %2$s",
+    "%1$s was devoured by %2$s.",
+    {
+      "killer": 1,
+      "note": "Killer-first. discover offered these with the weapon baked in ('using Moss Block', 'with Connor's Sword'); generalised to %3$s so one template covers every weapon instead of one per item.",
+      "template": "%1$s liquified %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s liquified %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s obliterated %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Active voice. The victim-first 'was obliterated by %2$s.' is a separate line.",
+      "template": "%1$s obliterated %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Distinct from 'mashed', which is its own verb here.",
+      "template": "%1$s smashed %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s smashed %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s stabbed %2$s using %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s stabbed %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "The 'with' twin of the 'executed %2$s using %3$s' line.",
+      "template": "%1$s executed %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s cut %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s wrecked %2$s with %3$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Victim in slot 3: the weapon is named before the victim, as in the 'shoved %2$s down %3$s's throat' line. Covers 'x1l abused <weapon> on _doof'.",
+      "template": "%1$s abused %2$s on %3$s",
+      "victim": 3
+    },
+    {
+      "killer": 1,
+      "note": "Victim in slot 3, weapon in slot 2: 'inthekhole used Moss Block to separate balji'.",
+      "template": "%1$s used %2$s to separate %3$s",
+      "victim": 3
+    }
+  ],
+  "6b6t": [
+    "%1$s died.",
+    "%1$s was torn to shreds by %2$s using %3$s",
+    "%1$s was blown apart by %2$s using %3$s",
+    "%1$s was utterly destroyed by %2$s using %3$s"
+  ],
+  "9b9t": [
+    "%1$s couldn't take it anymore",
+    "%1$s joined the 42%",
+    "%1$s has fallen... billions must die",
+    "%1$s caught the %2$s plague and died",
+    "%1$s thought he was a %2$s, but fell off some vines...",
+    "%1$s did it for the vine",
+    "%1$s's impression of Tarzan was so bad even the vines started crying",
+    "%1$s turned into mush",
+    {
+      "killer": 2,
+      "note": "PvP: 'Inspector1212 was killed in a street fight with EKATES1905'. Phrased 'with %2$s' rather than 'by %2$s', so the killer slot has to be named explicitly or nothing is credited.",
+      "template": "%1$s was killed in a street fight with %2$s",
+      "victim": 1
+    },
+    "%1$s mirrored Icarus",
+    "%1$s is so autistic they can't even climb a ladder",
+    "%1$s forgot to eat",
+    "%1$s swan dived into cement",
+    "%1$s got ez'd by %2$s",
+    "%1$s was wiped off of the face of the fucking earth by %2$s",
+    "They'll be scraping %1$s off the pavement",
+    "%1$s hugged the burning cross in their yard",
+    "%1$s was involved in 9/11 as the plane",
+    {
+      "killer": 2,
+      "note": "The config files this under the player-killer section, so the server does credit whoever they were fleeing. Added by hand before that was known, without a killer.",
+      "template": "%1$s tried to escape %2$s by jumping off a bridge",
+      "victim": 1
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first, and the killer is usually a mob. Matched exactly as the server sends it.",
+      "template": "%1$s decided to push a Jew named %2$s into lava for a laugh",
+      "victim": 2
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was shot by a %2$s using %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was blown up by a %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was killed by a %2$s using magic",
+      "victim": 1
+    },
+    "%1$s was obliterated by a sonically-charged shriek",
+    {
+      "killer": 2,
+      "template": "%1$s was slain by a %2$s using %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was slain by a %2$s",
+      "victim": 1
+    },
+    "%1$s was pushed into a cactus by %2$s",
+    {
+      "killer": 2,
+      "template": "%1$s was shot by a group of %2$ss using %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was blown up by a group of %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was shot by a group of %2$s using %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was killed by a group of %2$ss using magic",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was slain by a group of %2$ss using %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was slain by a group of %2$ss",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was pushed into a cactus by a group of %2$s",
+      "victim": 1
+    },
+    {
+      "template": "%1$s tried sleeping in the %2$s :kappa:",
+      "victim": 1
+    },
+    {
+      "template": "%1$s tried using the respawn anchor in the %2$s!",
+      "victim": 1
+    },
+    "%1$s ran into the giant fucking prickly thing",
+    "%1$s tried the cactus dupe but only got a death message",
+    "%1$s mistook a cactus for their new dildo",
+    "%1$s shot themselves",
+    {
+      "template": "%1$s shot themselves with %2$s",
+      "victim": 1
+    },
+    "%1$s egged themselves",
+    "%1$s failed a stasis chamber",
+    "%1$s fireballed themselves",
+    "%1$s got a fishhook caught in their head",
+    "%1$s shot themselves with snowball",
+    "%1$s shot themselves with trident",
+    "%1$s was squished to death",
+    "%1$s thought he was a nigger, but fell off some vines...",
+    "%1$s thought standing in fire was a good idea",
+    "%1$s was left in a hot car by their parents",
+    "%1$s melted away",
+    "%1$s blew up",
+    "%1$s thought playing with fireworks was a good idea",
+    "%1$s got smeared by %2$s.",
+    "%1$s is fucking gone",
+    "%1$s stared into the abyss, and the abyss stared back",
+    "%1$s was struck by lighting",
+    "%1$s couldn't afford food",
+    "%1$s ran out of goyslop",
+    "%1$s was playing with poison",
+    "%1$s was playing with magic",
+    "%1$s withered away",
+    "%1$s caught the newfag plague and died",
+    {
+      "template": "%1$s was squished by a %2$s",
+      "victim": 1
+    },
+    "%1$s died to a lingering dragons breath",
+    "%1$s showered in Zyklon B",
+    "%1$s died in a unique way",
+    "%1$s tried to 9/11 something",
+    "%1$s hit the Pentagon",
+    "%1$s experienced kinetic energy",
+    "%1$s discovered the floor was indeed lava",
+    "%1$s was killed in a heavily populated space",
+    "%1$s belonged in the water. Not land",
+    "%1$s did not put their snow suit on before they went to play.",
+    "%1$s tried playing armor with thorns",
+    "%1$s was killed",
+    "%1$s left the confines of this world",
+    "%1$s wants to escape reality, but was still sent to another dimension -.-",
+    "%1$s died",
+    {
+      "killer": 2,
+      "template": "%1$s was ganged up on by some %2$ss! One wacked them with %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was slain by a bunch of %2$ss",
+      "victim": 1
+    },
+    "%1$s got blacked",
+    {
+      "killer": 2,
+      "template": "%1$s was killed by some %2$s using magic",
+      "victim": 1
+    },
+    {
+      "killer": 1,
+      "template": "%1$s showed %2$s where Johnny was",
+      "victim": 2
+    },
+    "%1$s was blown up in a terrorist attack by %2$s",
+    {
+      "killer": 2,
+      "template": "%1$s was blown up by some %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was kidnapped by terrorist %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s asked jj to spawn in a %2$s and died",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was raped by a big black %2$s!",
+      "victim": 1
+    },
+    "%1$s was gangbanged by a bunch of tall oily black men!",
+    "%1$s was fireballed by %2$s",
+    {
+      "killer": 2,
+      "template": "%1$s was shot by a %2$s  using %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was slain by a %2$s  using %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s stood too close to a %2$s while it was spawning",
+      "victim": 1
+    },
+    "%1$s visited Detroit and was shot in a drive-by by a three-headed nigger",
+    {
+      "killer": 2,
+      "template": "%1$s stood too close to some %2$s while it was spawning",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was just killed by an %2$s, point and laugh!",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s got yiff'd to death by a %2$s",
+      "victim": 1
+    },
+    "%1$s discovered why bestiality is a bad idea",
+    "Inside of %1$s are two wolves, and one of them tore his way out",
+    {
+      "killer": 2,
+      "template": "%1$s was mauled the fuck out of by a group of %2$ss",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was spat on by a %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was ganged up on by a %2$s! One shot them with %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was spat on by some %2$s",
+      "victim": 1
+    },
+    "%1$s got spitroasted",
+    "%1$s met Xi Jinping",
+    "%1$s was sent to a re-education camp",
+    "%1$s was forced to eat cactus by the Mossad",
+    {
+      "template": "%1$s was shot by the Mossad with a %2$s",
+      "victim": 1
+    },
+    {
+      "template": "%1$s was killed by the Mossad with a %2$s",
+      "victim": 1
+    },
+    "A Mossad agent killed %1$s",
+    {
+      "killer": 2,
+      "template": "%1$s was pushed into a cactus by some %2$s",
+      "victim": 1
+    },
+    "%1$s was forced to eat cactus by Mossad agents",
+    {
+      "template": "%1$s was shot by Mossad agents with a %2$s",
+      "victim": 1
+    },
+    {
+      "template": "%1$s was jumped by Mossad agents using %2$s",
+      "victim": 1
+    },
+    "%1$s was killed by Mossad agents",
+    {
+      "killer": 2,
+      "template": "%1$s got got crushed by a %2$ss cheeks",
+      "victim": 1
+    },
+    {
+      "killer": 3,
+      "template": "%1$s got shot with a %2$s by some %3$ss!",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was stung by a %2$s  using %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s's bitch ass was killed by a %2$s sting",
+      "victim": 1
+    },
+    "%1$s was brutally torn apart by a pack of hornets",
+    {
+      "killer": 2,
+      "template": "%1$s was knocked by a %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was knocked by a bunch of %2$ss",
+      "victim": 1
+    },
+    "%1$s was slain by %2$s",
+    "%1$s was obliterated by a bunch of sonically-charged shrieks",
+    "%1$s was bogged by %2$s using %3$s",
+    {
+      "killer": 2,
+      "template": "%1$s was bogged by a bunch of %2$ss",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was bogged by a bunch of %2$ss using %3$s",
+      "victim": 1
+    },
+    "%1$s was knocked by %2$s",
+    {
+      "killer": 2,
+      "template": "%1$s stood too close to %2$ss bed in the %3$s",
+      "victim": 1
+    },
+    "%1$s didn't respect allah...",
+    {
+      "killer": 2,
+      "template": "%1$s stood too close to %2$ss respawn anchor in the %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was so terrified of %2$s he thought a cactus looked safe",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "'%1$s tried tricking %2$s into walking into a cactus. Guess who the",
+      "victim": 1
+    },
+    "%1$s was shot by %2$s",
+    "%1$s was shot by %2$s using %3$s",
+    "%1$s was shot in a school shooting",
+    "%1$s didn't see the arrow headed straight towards them",
+    "%1$s was blown the fuck out",
+    "%1$s was hit in the head with a snowball thrown by %2$s",
+    "%1$s was impaled by %2$s",
+    "%1$s was slain by %2$s using %3$s",
+    "%1$s was stabbed to death by %2$s using %3$s",
+    {
+      "killer": 2,
+      "template": "%1$s didn't pay their dues to %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s suffocated in a wall while fighting %2$s",
+      "victim": 1
+    },
+    "%1$s was kneeled on by %2$s",
+    {
+      "killer": 2,
+      "template": "%1$s tried to swim in lava while trying to escape %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 1,
+      "template": "%1$s blew up %2$s",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s blew up %2$s with tnt",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s jihaded all over %2$s",
+      "victim": 2
+    },
+    {
+      "killer": 2,
+      "template": "%1$s stood too close to %2$ss fireworks",
+      "victim": 1
+    },
+    "%1$s was killed by %2$s blowing up an end-crystal!",
+    {
+      "killer": 1,
+      "template": "%1$s tripped %2$s knocking them into the void",
+      "victim": 2
+    },
+    {
+      "killer": 2,
+      "template": "%1$s got the %2$s brain virus and died",
+      "victim": 1
+    },
+    "%1$s tried too hard",
+    {
+      "killer": 2,
+      "template": "%1$s tried playing with %2$ss armor with thorns",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s logged out during combat fighting %2$s, they died still -.-",
+      "victim": 1
+    },
+    "%1$s logged and still died. get a better client",
+    {
+      "killer": 2,
+      "template": "%1$s was ganged up on by multiple players and %2$s shot them with %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was executed by the %2$s cartel",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was ganged up on by some players and %2$s wacked them with %3$s",
+      "victim": 1
+    },
+    "%1$s was slain by a bunch of players",
+    "%1$s was eaten by a bunch of cannibals"
+  ],
+  "_readme": [
+    "Server-specific death messages, in the same %1$s template form as",
+    "Minecraft's own en_us table so they compile into matchers identically.",
+    "",
+    "%1$s is the victim. A template phrased '... by %2$s' also credits a killer;",
+    "that killer may be a mob, which the player_kills view filters out by",
+    "requiring a known player.",
+    "",
+    "Templates are matched longest-first, so a precise one always beats a looser",
+    "one that would also match. Group keys are for humans only - every list is",
+    "flattened together at load.",
+    "",
+    "To add one: paste the exact line the server sends, replace the player name",
+    "with %1$s (and any killer with %2$s), and add a case to the tests in",
+    "classify.rs.",
+    "",
+    "An entry is normally a string where %1$s is the victim. When a server puts",
+    "the killer first instead, use an object: {\"template\": ..., \"killer\": 1,",
+    "\"victim\": 2} to say which slot is which."
+  ],
+  "anarchyae": [
+    "💀 %1$s  drowned",
+    {
+      "killer": 2,
+      "note": "Every death here is prefixed with 💀 and separated from the name by two spaces. The killer slot needs naming explicitly throughout: this server phrases it 'of %2$s', never 'by %2$s', so nothing can be inferred.",
+      "template": "💀 %1$s  fell victim to the explosive wrath of %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "💀 %1$s  met their end in the icy embrace of %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "💀 %1$s  fell to the arrows of %2$s equipped with %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "💀 %1$s  was overwhelmed by the relentless advance of %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "note": "The longer twin of the line above. %3$s is the player being fled from, NOT the killer — the mob did it — so the killer stays slot 2. Matched first because it is longer.",
+      "template": "💀 %1$s  was overwhelmed by the relentless advance of %2$s while escaping %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "note": "Found by discover, which offered it with the mob baked in as 'the relentless Silverfish' — its mob rule only generalises 'by a/an <mob>'. Written out by hand so it covers every mob rather than one.",
+      "template": "💀 %1$s  was swarmed and overwhelmed by the relentless %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "note": "'was ensnared by the dark arts of the malevolent Witch'. The mob is generalised so this is not one template per mob.",
+      "template": "💀 %1$s  was ensnared by the dark arts of the malevolent %2$s",
+      "victim": 1
+    },
+    "💀 %1$s was slain by %2$s using %3$s",
+    {
+      "killer": 2,
+      "note": "Two spaces after the name, unlike the 'was slain by' line. Killer named explicitly because it reads 'to %2$s', not 'by %2$s'.",
+      "template": "💀 %1$s  succumbed to %2$s and their horde, armed with %3$s",
+      "victim": 1
+    },
+    "💀 %1$s  learned what is conservation of momentum while fighting %2$s",
+    "💀 %1$s  died by %2$s  mighty hand",
+    "💀 %1$s  died by %2$s  mighty hand while fighting %3$s",
+    "💀 %1$s  was blown up by %2$s",
+    "💀 %1$s  was punched to death by %2$s",
+    "💀 %1$s  fell from a high place while fighting %2$s",
+    "💀 %1$s  fell from a high place while escaping %2$s",
+    "💀 %1$s  burned to death while fighting %2$s",
+    "💀 %1$s  burned to death while escaping %2$s",
+    "💀 %1$s  went up in flames while fighting %2$s",
+    "💀 %1$s  went up in flames while escaping %2$s",
+    "💀 %1$s  drowned while fighting %2$s",
+    "💀 %1$s  drowned while escaping %2$s",
+    "💀 %1$s  tried to swim in lava while fighting %2$s",
+    "💀 %1$s  tried to swim in lava while escaping %2$s",
+    "💀 %1$s  was ensnared and consumed by a %2$s while fighting %3$s",
+    "💀 %1$s  was ensnared and consumed by a %2$s while escaping %3$s",
+    "💀 %1$s  shattered like a crystal while fighting %2$s",
+    "💀 %1$s  took their own life while fighting %2$s",
+    "💀 %1$s  fell from a high place while running away from %2$s",
+    "💀 %1$s  fell out of the world while fighting %2$s",
+    "💀 %1$s  fell out of the world while running away from %2$s",
+    "💀 %1$s  was killed by ",
+    "💀 %1$s  was killed by %2$s",
+    "💀 %1$s  was killed by [Intentional Game Design]",
+    {
+      "killer": 2,
+      "note": "'by the elusive %2$s' is not the 'by %2$s' phrasing, so the mob has to be named as killer.",
+      "template": "💀 %1$s  was levitated and defeated by the elusive %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "💀 %1$s  was howled down by the fierce %2$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "note": "The Wolf did it; the thing being fled from is slot 3.",
+      "template": "💀 %1$s  was howled down by the fierce %2$s while running away from %3$s",
+      "victim": 1
+    }
+  ],
+  "constantiam": [
+    "%1$s became epstein'd",
+    "%1$s comitted sudoku",
+    "%1$s killed themselves",
+    "%1$s thought they could swim forever",
+    "%1$s fell into the void",
+    "%1$s was pushed off a high place by %2$s",
+    "%1$s took %2$s heads at once",
+    "%1$s was burnt to a crisp",
+    "%1$s thought lava was a hot tub",
+    "%1$s was knocked by a bunch of Creaking's",
+    "%1$s blew up! They were playing around with an end-crystal!",
+    "%1$s was slain by %2$s somehow using %3$s",
+    "%1$s died to a wither skull",
+    "%1$s was mashed up pretty good.",
+    "%1$s was pushed into the void by %2$s",
+    "%1$s tried climbing to greater heights and fell off %2$s",
+    "%1$s was playing with tnt",
+    "%1$s flew into a wall, WTF",
+    "%1$s met Allah",
+    "%1$s ran out of food like an African",
+    "%1$s was bogged by %2$s.",
+    {
+      "killer": 1,
+      "note": "Killer-first: 'Spacenatives_Cat absolutely murked justinhollow'",
+      "template": "%1$s absolutely murked %2$s",
+      "victim": 2
+    },
+    {
+      "killer": 2,
+      "note": "The killer slot needs naming explicitly: 'by some %2$s' does not contain the 'by %2$s' phrasing that infers one.",
+      "template": "%1$s was ganged up on by some %2$s! One shot them with %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "note": "The server's own misspellings, matched as sent. Two words vary independently here ('ganged'/'ganed', 'shot'/'wacked'); both of these forms were observed, and the two cross-products below were not, but cost nothing to cover.",
+      "template": "%1$s was ganed up on by some %2$s! One wacked them with %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was ganed up on by some %2$s! One shot them with %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 2,
+      "template": "%1$s was ganged up on by some %2$s! One wacked them with %3$s",
+      "victim": 1
+    }
+  ],
+  "discovered": [
+    "%1$s was utterly destroyed by %2$s.",
+    "%1$s was removed by %2$s.",
+    "%1$s turned into ash.",
+    "%1$s was blown apart by %2$s.",
+    "%1$s was turned into bloody rain by %2$s.",
+    "%1$s took an arrow to the knee and died.",
+    "%1$s was violently separated by explosives.",
+    "%1$s was crushed by %2$s.",
+    "%1$s combusted whilst fighting a zombie villager",
+    "%1$s melted by fire.",
+    "%1$s melted inside a magma cube.",
+    "%1$s was disintegrated by explosives.",
+    "%1$s combusted.",
+    "%1$s ended their life.",
+    "%1$s was reduced to dust by %2$s.",
+    "%1$s burned apart.",
+    "%1$s was raided to death by boggeds.",
+    "%1$s was eaten by zombie pigmen wielding %2$s",
+    "%1$s was pushed into lava by Zombie",
+    "%1$s was raided to death by skeletons.",
+    "%1$s got stuck in a berry bush.",
+    "%1$s was trampled to death by %2$s wielding %3$s",
+    "%1$s was smashed to death by %2$s wielding %3$s",
+    "%1$s was deleted by %2$s.",
+    "%1$s drowned in lava whilst fighting a zombie",
+    "💀 %1$s  fell from a high place",
+    "💀 %1$s was slain by ZeroFell using [Mace]",
+    "💀 %1$s  succumbed to Zombie and their horde, armed with Iron Sword",
+    "%1$s became lava whilst fighting a drowned",
+    "💀 %1$s  succumbed to Zombie and their horde, armed with Iron Axe while fighting Stray",
+    "💀 %1$s  succumbed to Zombie and their horde, armed with Iron Axe",
+    "💀 %1$s  succumbed to Zombie and their horde, armed with Rotten Flesh",
+    "%1$s assassinated themselves.",
+    "💀 %1$s  succumbed to Zombie and their horde, armed with Copper Pickaxe",
+    "💀 %1$s  hit the ground too hard",
+    "💀 %1$s  killed by Breeze",
+    "💀 %1$s  succumbed to Zombie and their horde, armed with Bone",
+    "💀 %1$s  took their own life",
+    "💀 %1$s  succumbed to Zombie and their horde, armed with Copper Sword",
+    "%1$s  took their own life",
+    "💀 %1$s  succumbed to Piglin and their wrath, armed with Golden Sword",
+    "💀 %1$s  tried to swim in lava",
+    "💀 %1$s was slain by osky_silencedval using [Diamond Sword]",
+    "💀 %1$s was slain by osky_silencedval using [ADAM SMASHER]",
+    "💀 %1$s  hit the ground too hard while running away from Skeleton",
+    "%1$s couldn't swim up quick enough whilst fighting a drowned",
+    "%1$s dried up and fell apart.",
+    "%1$s broke their fucking legs",
+    "%1$s died of natural causes while being peacefully questioned by law enforcement",
+    "%1$s forgot to eat",
+    "%1$s thought he was a fish",
+    "%1$s became the 73rd virgin",
+    "%1$s thought they were jj20051, but discovered they burn",
+    "%1$s thought he could fly. What an autist...",
+    "%1$s got skull emoji'd a tad too hard",
+    "💀 %1$s  withered away while fighting Blaze",
+    "💀 %1$s  met their fate at the hands of Wither skeleton armed with Stone Sword",
+    "%1$s was killed to death by %2$s wielding %3$s",
+    "%1$s gave up life.",
+    "%1$s couldn't outrun a wither.",
+    "%1$s didn't get to water in time",
+    "💀 %1$s  was blown up by buhhol",
+    "%1$s forgot about air",
+    "%1$s has fallen... billions must die, starting from him",
+    "%1$s tried to escape Skeleton by jumping off a bridge",
+    "💀 %1$s  fell from a high place while escaping CardFell",
+    "%1$s was pushed into lava by Ghast",
+    "%1$s found out that lava is, in fact, hot",
+    "%1$s tried to escape Wither by jumping off a bridge",
+    "%1$s didn't see the gargantuan fucking nigger shooting TNT at them",
+    "%1$s became lava whilst fighting a zombie",
+    "%1$s suffocated.",
+    "%1$s got the Wither brain virus and died",
+    "💀 %1$s  fell from a high place while running away from Zombie",
+    "%1$s was consumed by %2$s.",
+    "%1$s couldn't breathe",
+    "💀 %1$s  fell from a high place while fighting Zombie",
+    "💀 %1$s  burned to death while fighting Blaze",
+    "%1$s committed suicide.",
+    "%1$s suffocated in water whilst fighting a drowned",
+    "%1$s tripped, tried to save themselves, failed and was obliterated",
+    "%1$s fell into the void and instantly died.",
+    "%1$s died to some wither skulls",
+    "%1$s was turned into a spider nest.",
+    "%1$s tripped, broke a bone or died somehow inside lava whilst fighting a spider",
+    "%1$s was reduced into thick paste by %2$s wielding %3$s",
+    "💀 %1$s  was ensnared and consumed by a Spider while running away from Zombie",
+    "%1$s went inside a slime and died.",
+    "💀 %1$s  burned to death",
+    "%1$s suffocated inside a slime.",
+    "💀 %1$s  suffocated in a wall",
+    "💀 %1$s  was ensnared and consumed by a Spider",
+    "💀 %1$s  was killed by",
+    "💀 %1$s  was outmatched in a teleportation duel with an Enderman while fighting Skeleton",
+    "💀 %1$s  was outmatched in a teleportation duel with an Enderman",
+    "💀 %1$s  got in too deep and drowned under the watchful gaze of a Drowned",
+    "💀 %1$s  succumbed to Drowned and their watery embrace, armed with Trident",
+    "💀 %1$s  burned to death while running away from Zombie",
+    "💀 %1$s  fell from a high place while running away from Skeleton",
+    "%1$s was pummeled into multiple parts by %2$s wielding %3$s",
+    "💀 %1$s  discovered the floor was lava",
+    "%1$s was beaten into meaty pulp by %2$s.",
+    "💀 %1$s  died by Sp1d3rrTheHomie  mighty hand",
+    "💀 %1$s  burned to death while escaping Sp1d3rrTheHomie",
+    "%1$s combusted whilst fighting a zombie",
+    "%1$s was blown up in a terrorist attack by Creeper",
+    "💀 %1$s  was obliterated by the chaotic power of the fearsome Wither",
+    "💀 %1$s  withered away while running away from Wither",
+    "%1$s exploded themselves with an end crystal",
+    "%1$s exhausted and died.",
+    "%1$s was so terrified of Zombie he thought a cactus looked safe",
+    "%1$s tried to escape Pillager by jumping off a bridge",
+    "💀 %1$s  took their own life while running away from Zombie",
+    "💀 %1$s  burned to death while fighting Zombie",
+    "💀 %1$s  tried to swim in lava while fighting Zombie",
+    "💀 %1$s  fell from a high place while running away from Enderman",
+    "%1$s starved to death.",
+    "%1$s was removed by zombie pigmen wielding %2$s",
+    "💀 %1$s  was crushed by the indomitable strength of a Iron golem",
+    "%1$s tried to swim in lava and didn't get out quick enough whilst fighting a zombie",
+    "%1$s ended their own pitiful existence.",
+    "💀 %1$s  burned to death while fighting Sp1d3rrTheHomie",
+    "%1$s died stuck on a cactus.",
+    "%1$s got stuck on a cactus.",
+    "%1$s rubbed themselves too hard against a cactus.",
+    "%1$s was murdered by zombie pigmen wielding %2$s",
+    "💀 %1$s  hit the ground too hard while running away from Zombie",
+    "%1$s was murdered by pillagers.",
+    "💀 %1$s  was engulfed in the fiery wrath of a Blaze",
+    "💀 %1$s  burned to death while escaping CyberFell",
+    "💀 %1$s  fell from a high place while fighting -Mo-",
+    "💀 %1$s  fell from a high place while fighting Stray",
+    "%1$s was pummeled into multiple parts by %2$s.",
+    "%1$s was eaten by silverfish.",
+    "💀 %1$s  killed by Bogged with Bow",
+    "💀 %1$s  was killed by magic cloud",
+    "💀 %1$s  burned to death while fighting CyberFell",
+    "💀 %1$s  fell out of the world",
+    "💀 %1$s  succumbed to the heavy footsteps of the fearsome Warden",
+    "💀 %1$s  hit the ground too hard while fighting fueh",
+    "💀 %1$s  starved to death",
+    "%1$s melted in lava whilst fighting a zombie",
+    "💀 %1$s  took their own life while running away from Spider",
+    "%1$s tripped, broke a bone or died somehow inside lava whilst fighting EVIL INC HIGHWAY PATROL",
+    "💀 %1$s  fell from a high place while fighting Skeleton",
+    "%1$s tried climbing to greater heights",
+    "%1$s gave up and faded away.",
+    "💀 %1$s  drowned while fighting Drowned",
+    "%1$s took the pill",
+    "💀 %1$s  was impaled on stalagmite",
+    "💀 %1$s  blew up",
+    "💀 %1$s  frozen to death",
+    "%1$s fell in lava",
+    "💀 %1$s  took their own life while running away from Skeleton",
+    "💀 %1$s  died",
+    "💀 %1$s  shattered like a crystal",
+    "%1$s was stomped into mince by %2$s.",
+    "%1$s melted in lava whilst fighting a spider",
+    "%1$s violently ended their own life with a bed explosion.",
+    "%1$s died to the void (Death #29486)",
+    "%1$s was killed for logging out during combat.",
+    "💀 %1$s  succumbed to %2$s and their undead horde, armed with %3$s",
+    "💀 %1$s  learned what is conservation of momentum",
+    "%1$s: > Easily find the essence you're looking for. Do -search (query) to search inside of essence descriptions (alpha)!",
+    "%1$s: > Reminder to drink more water",
+    "%1$s: I currently support: -help, -upcoming, -explain, -search, -sharp, -stream, -mw, -degg, -howtodegg, -version, -trade, -powers, -midas, -wiki, and -pc (ess name) (tier). Pc works for essences, keys, and some inf blocks",
+    "%1$s: Minewind is currently on version 1.20.4 This means maces, spears, and trial chambers do not exist. There is no timeline for when versions will be updated.",
+    "%1$s: Deggs are dragon eggs - the server currency. they are measured in deggs (d), stacks of deggs (steggs, s), and shulkers of dragon eggs (sheggs, sh)",
+    "%1$s fell into the void whilst fighting an enderman",
+    "%1$s: > Essences now have explanations. Do -explain (ess name) to learn more!",
+    "%1$s: > Take a deep breath",
+    "💀 %1$s  succumbed to the cursed transformation of a Zombie villager",
+    "%1$s: You get deggs from doing events at spawn, exploring the wild, killing bosses, and trading with other players",
+    "%1$s: > Type -help to learn about what commands I support.",
+    "%1$s self-disintegrated",
+    "%1$s burned up in lava whilst fighting a zombie",
+    "%1$s was reduced to lava by lava whilst fighting a zombie",
+    "%1$s: Abyssal event in progress! Tip: The upcoming event can be seen by pushing and holding the 'tab' key and looking above the list of players.",
+    "%1$s wins the abyssal event! Poseidon is pleased!",
+    "%1$s: Team Deathmatch Event (2 hr and 7 min)",
+    "%1$s: Team Deathmatch Event (8 min)",
+    "%1$s: Team Deathmatch Event in progress!",
+    "%1$s: Attack on Giant Event (2 hr and 47 min)",
+    "%1$s committed blood sacrifice",
+    "%1$s: Open chest(s) 3",
+    "%1$s: Attack on Giant Event (8 min)",
+    "%1$s sharpened Come Here Buddy to +12!",
+    "%1$s: Beef Event (2 hr and 8 min)",
+    "%1$s sharpened Syba's Katana to +11!",
+    "%1$s sharpened Syba's Katana to +12!",
+    "%1$s sharpened Akhetem to +16!",
+    "%1$s sharpened Akhetem to +25!",
+    "%1$s sharpened Akhetem to +26!",
+    "%1$s sharpened Akhetem to +27!",
+    "%1$s sharpened Akhetem to +19!",
+    "%1$s sharpened Akhetem to +24!",
+    "%1$s: A Pop Tart® is flat and rectangular, roughly 3 inches by 5 inches (7 cm by 13 cm). Each Pop Tart® consists of a shell of dough with a sugary filling on the inside. Many varieties of Pop Tarts® are frosted.",
+    "%1$s sharpened Akhetem to +21!",
+    "%1$s sharpened Akhetem to +22!",
+    "%1$s sharpened Akhetem to +18!",
+    "%1$s sharpened Akhetem to +14!",
+    "%1$s sharpened Akhetem to +28!",
+    "%1$s sharpened Akhetem to +29!",
+    "%1$s sharpened Akhetem to +20!",
+    "%1$s sharpened Akhetem to +17!",
+    "%1$s sharpened Akhetem to +30!",
+    "%1$s sharpened Akhetem to +23!",
+    "%1$s sharpened Akhetem to +15!",
+    "%1$s tried to swim in lava and didn't get out quick enough whilst fighting a magma cube",
+    "%1$s drowned whilst fighting a zombie",
+    "%1$s was killed for combat logging.",
+    "💀 %1$s  was overwhelmed by Vindicator and their relentless Iron Axe while running away from Pillager",
+    "💀 %1$s  was overwhelmed by Vindicator and their relentless Iron Axe",
+    "💀 %1$s  was overwhelmed by Vindicator and their relentless Iron Axe while fighting Pillager",
+    "💀 %1$s  was overwhelmed by Vindicator and their relentless Iron Axe while running away from Vex",
+    "💀 %1$s  succumbed to Pillager and their relentless assault, armed with Crossbow",
+    "💀 %1$s  was overwhelmed by Vindicator and their relentless Iron Axe while fighting Vex",
+    "💀 %1$s  met their end at the hands of Vex and their vex minion armed with Iron Sword",
+    "%1$s suffocated",
+    "%1$s instantly died due to logging out during combat. (200)",
+    "%1$s burned up in lava whilst fighting a zombified piglin",
+    "%1$s combusted",
+    "%1$s fell from a high place (498)",
+    "💀 %1$s  met their end at the hands of Vex and their vex minion armed with Iron Sword while fighting Evoker fangs",
+    "💀 %1$s  burned to death while running away from Vex",
+    "%1$s fell from a high place (178)",
+    "%1$s fell from a high place (275)",
+    "%1$s instantly died due to logging out during combat.",
+    "%1$s was raided to death by pillagers.",
+    "%1$s instantly died due to logging out during combat. (435)",
+    "%1$s burned to death whilst fighting a zombie",
+    "%1$s was killed for logging out during combat. (410)",
+    "💀 %1$s  withered away while running away from Wither skeleton",
+    "%1$s was killed for logging out during combat. (380)",
+    "%1$s starved to death like an african child",
+    "%1$s tried to swim in lava and didn't get out quick enough whilst fighting %1$s",
+    "%1$s was cursed to slow death by %2$s.",
+    "%1$s fell from a high place (300)",
+    "💀 %1$s  killed by Breeze while fighting Silverfish",
+    "❄ %1$s » lava dupe on top",
+    "%1$s commited suicide",
+    "- %1$s (16)",
+    "%1$s fell into the void whilst fighting %1$s",
+    "%1$s withered away from Wither's magic",
+    "💀 %1$s  drowned while running away from Zombie",
+    "%1$s blew themselves up with a bed explosion.",
+    "%1$s was killed for combat logging. (410)",
+    "%1$s drowned in lava whilst fighting a magma cube",
+    "💀 %1$s  met their end at the hands of Vex and their vex minion armed with Iron Sword while running away from Evoker fangs",
+    "💀 %1$s  succumbed to Drowned and their watery embrace, armed with Bone while fighting Zombie",
+    "%1$s fell from a high place (258)",
+    "%1$s is starting up. You can wait here.",
+    "💀 %1$s  killed by Nautilus",
+    "%1$s was ripped apart by %2$s wielding %3$s",
+    "%1$s combusted whilst fighting an endermite",
+    "%1$s disintegrated %1$s with Ender Pearl",
+    "❄ %1$s » !pearl",
+    "❄ %1$s » good event big Q",
+    "💀 %1$s  suffocated in a wall while running away from Creeper",
+    "💀 %1$s  met their end at the hands of Vex and their vex minion armed with Iron Sword while running away from Spider",
+    "💀 %1$s  became a frozen victim of the relentless Polar bear",
+    "💀 %1$s  was consumed by the gooey mass of a Slime",
+    "💀 %1$s  was blasted into oblivion by the ethereal fireballs of a Ghast",
+    "💀 %1$s  soul was taken away",
+    "💀 %1$s  met their end at the hands of Vex and their vex minion armed with Iron Sword while running away from Vindicator",
+    "💀 %1$s  went up in flames",
+    "💀 %1$s  was melted and consumed by the searing heat of a Magma cube",
+    "%1$s: Heart Extractor (Weapon+Tool): Receive the named heart of players on kill",
+    "* %1$s accepting TP's to the Minewind Library before I hit the sack",
+    "🥇 <%1$s> WHO WANTS THIS",
+    "%1$s instantly died due to logging out during combat. (338)",
+    "%1$s fell from a high place (268)",
+    "%1$s → me: yo you got any money on d smp you wanna trade for ingots on here",
+    "🥇 <%1$s> yikes glowstone dust is a harsh way to go.",
+    "🥇 <%1$s> i just thought i would get points",
+    "🥇 <%1$s> THIS IS NOT OF MY DOING",
+    "🥇 <%1$s> i just full tabbed!!!!!",
+    "%1$s was killed for combat logging. (310)",
+    "%1$s was killed for logging out during combat. (110)",
+    "🥇 <%1$s> dude like its impossible.",
+    "%1$s withered away from Sub to Namy McNameface's magic",
+    "%1$s was killed for logging out during combat. (510)",
+    "%1$s smashed themselves against a cactus and instantly died.",
+    "%1$s was killed for logging out during combat. (293)",
+    "%1$s fell out of the world (337)",
+    "♛ %1$s was the Royale MVP with 6 kill(s)!",
+    "%1$s fell out of the world (480)",
+    "💀 %1$s  hit the ground too hard while fighting Creeper",
+    "%1$s → me: yo you got any money or stuff on d smp you would trade for ingots on here",
+    "🥇 <%1$s> what a sword pop",
+    "%1$s was killed for logging out during combat. (310)",
+    "%1$s was killed for combat logging. (399)",
+    "%1$s combat logged in The Pit and was slain!",
+    "%1$s instantly died due to logging out during combat. (510)",
+    "%1$s fell from a high place (394)",
+    "%1$s was reduced to lava by lava whilst fighting a spider",
+    "💀 %1$s  burned to death while running away from Piglin",
+    "%1$s died randomly.",
+    "%1$s suicide bombed with a bed explosion.",
+    "%1$s fell from a high place (304)",
+    "%1$s instantly died due to logging out during combat. (466)",
+    "%1$s instantly died due to logging out during combat. (410)",
+    "%1$s combusted whilst fighting a player",
+    "%1$s was killed for combat logging. (100)",
+    "%1$s: OPEN",
+    "---------------------------\n%1$s has many commands, but do you know them all? Check out the %1$s Commands page to see a full list.\n---------------------------",
+    "%1$s 🔰: we need wither skulls",
+    "%1$s was reduced to lava by lava whilst fighting %1$s",
+    "%1$s 🔰: guess bean did",
+    "%1$s 🔰: did u get the two piglins stuck?",
+    "%1$s 🔰: imma get a third skull and come back",
+    "%1$s 🔰: u hit zomb piglins?",
+    "%1$s 🔰: u doing ok eezay btw?",
+    "%1$s/4 players sleeping",
+    "%1$s/6 players sleeping",
+    "%1$s/5 players sleeping",
+    ".%1$s instantly died due to logging out during combat. (247)",
+    "%1$s fell from a high place (296)",
+    "%1$s exploded into gibs playing with fireworks.",
+    "%1$s had their life instantly removed.",
+    "%1$s burned up in lava whilst fighting EVIL INC HIGHWAY PATROL",
+    "%1$s destroyed themselves with a respawn anchor.",
+    "%1$s fell from a high place (342)",
+    "%1$s burned up in lava whilst fighting %1$s",
+    "%1$s fell out of the world (610)",
+    "%1$s → me: yo got any dsmp money/items you want to trade for v+ ings i got 3 stacks of blocks+ to spend",
+    "%1$s was poisoned to death by %2$s."
+  ],
+  "mcvpg": [
+    "%1$s was rekt by %2$s using %3$s"
+  ],
+  "minewind": [
+    {
+      "killer": 1,
+      "note": "Killer-first vampire kill. Minewind announces these as 'ChudOut sucked Perrithedad dry' rather than victim-first.",
+      "template": "%1$s sucked %2$s dry",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first killstreak. The suffix is the Unreal-style announcer; without naming the slots, 'rekt' would be guessed the wrong way around.",
+      "template": "%1$s rekt %2$s and got a DOUBLE KILL!",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s rekt %2$s and got a MULTI KILL!",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s rekt %2$s and got an ULTRA KILL!",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s rekt %2$s and got a MONSTER KILL!",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s rekt %2$s and got a MEGA KILL!",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s rekt %2$s and got a double kill!",
+      "victim": 2
+    },
+    {
+      "killer": 1,
+      "template": "%1$s rekt %2$s and got a TRIPLE kill!",
+      "victim": 2
+    },
+    "%1$s was zapped by %2$s",
+    "%1$s was fragged by %2$s",
+    "%1$s was rekt by %2$s",
+    {
+      "killer": 2,
+      "note": "Mob kill credited to the owner: 'ItzZetyx was rekt by Plamenakk_'s Master Skeleton'.",
+      "template": "%1$s was rekt by %2$s's %3$s",
+      "victim": 1
+    },
+    {
+      "killer": 1,
+      "note": "Killer-first vampire steal.",
+      "template": "%1$s borrowed soul of %2$s",
+      "victim": 2
+    }
+  ],
+  "oldfrog": [
+    "%1$s was lynched by %2$s using %3$s",
+    "%1$s was fucked by %2$s using %3$s",
+    "%1$s was fucked by %2$s",
+    "%1$s was raped by %2$s",
+    {
+      "killer": 1,
+      "template": "%1$s shoved an end crystal down %2$s",
+      "victim": 2
+    }
+  ],
+  "rempolon": [
+    "%1$s ʟᴏɢɢᴇᴅ ᴏᴜᴛ ɪɴ ᴄᴏᴍʙᴀᴛ ☠",
+    {
+      "killer": 1,
+      "note": "Killer-first: '[☠] ItzmeGalaxy 🗡 Fedor23368'. Rempolon announces PvP as an icon sandwich rather than a sentence — the sword separates killer from victim, and there is no verb to read direction from, so the slots are named explicitly.",
+      "template": "[☠] %1$s 🗡 %2$s",
+      "victim": 2
+    }
+  ]
+}
