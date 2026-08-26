@@ -50,6 +50,15 @@ pub async fn help(ctx: Context<'_>) -> Result<(), Error> {
                     "/chatbridge remove".into(),
                     "disable the feed and clear it until set up again".into(),
                 ),
+                (
+                    "/watchbridge".into(),
+                    "embed here when a watched player joins/leaves (needs Administrator)".into(),
+                ),
+                ("/watchbridge set".into(), "point it at a channel".into()),
+                (
+                    "/watchbridge add".into(),
+                    "add a player to the watchlist".into(),
+                ),
             ],
         ),
         (

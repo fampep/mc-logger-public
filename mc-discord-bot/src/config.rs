@@ -48,7 +48,6 @@ pub struct BridgeConfig {
     pub lines_per_message: usize,
     pub max_rows_per_poll: i64,
     pub start_from_latest: bool,
-    pub watch_alerts: bool,
     /// Post a message in the feed channel when the live gateway link comes up,
     /// goes down, or the feed falls back to database polling.
     pub status_notices: bool,
@@ -98,7 +97,6 @@ impl Config {
                 lines_per_message: bounded("BRIDGE_LINES_PER_MESSAGE", 20, 1, 60) as usize,
                 max_rows_per_poll: bounded("BRIDGE_MAX_ROWS_PER_POLL", 40, 1, 500) as i64,
                 start_from_latest: optional("BRIDGE_START_FROM_LATEST", "true") != "false",
-                watch_alerts: optional("WATCH_ALERTS", "true") != "false",
                 status_notices: optional("BRIDGE_STATUS_NOTICES", "true") != "false",
             },
             topic: TopicConfig {

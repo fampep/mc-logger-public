@@ -82,17 +82,6 @@ pub fn presence_kind(event_type: &str) -> Option<&'static str> {
 }
 
 #[derive(Debug, Clone)]
-pub struct WatchHit {
-    pub id: i64,
-    pub occurred_at: DateTime<Utc>,
-    pub event_type: String,
-    pub player_name: String,
-    pub server_host: Option<String>,
-    pub user_id: String,
-    pub channel_id: String,
-}
-
-#[derive(Debug, Clone)]
 pub struct OverallStats {
     pub servers: i64,
     pub sessions: i64,

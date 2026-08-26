@@ -11,17 +11,15 @@ use tokio::sync::RwLock;
 use tokio::task::JoinHandle;
 
 use crate::config::{BridgeStyle, Config, ServerConfig};
-use crate::database::{presence_kind, ChatRow, Db, EventRoute, WatchHit, ROUTE_KINDS};
+use crate::database::{presence_kind, ChatRow, Db, EventRoute, ROUTE_KINDS};
 use crate::discord::topic::{ChannelTopic, TopicResult};
 use crate::presentation::embeds::{
     build_event_embed, build_feed_batch_embed, build_feed_link_embed, pack_feed, FeedLink,
 };
 use crate::presentation::heads;
-use crate::presentation::ui::{player_name, Limits};
 
-const DUPLICATE_WINDOW: Duration = Duration::from_secs(60);
 const PRESENCE_DEDUP: Duration = Duration::from_secs(20);
-const WATCH_HITS_PER_TICK: i64 = 200;
+const WATCHBRIDGE_HITS_PER_TICK: i64 = 200;
 const DISCORD_429_RETRIES: u8 = 8;
 const DISCORD_429_FALLBACK: Duration = Duration::from_secs(2);
 
@@ -58,7 +56,7 @@ struct BridgeInner {
     presence_cursor: i64,
     presence_cursor_at: Option<chrono::DateTime<chrono::Utc>>,
     last_post_at: Option<chrono::DateTime<chrono::Utc>>,
-    recent_alerts: HashMap<String, Instant>,
+    recent_watchbridge: HashMap<String, Instant>,
     recent_presence: HashMap<String, Instant>,
     topic: ChannelTopic,
 }
@@ -100,7 +98,7 @@ impl Bridge {
                 presence_cursor: 0,
                 presence_cursor_at: None,
                 last_post_at: None,
-                recent_alerts: HashMap::new(),
+                recent_watchbridge: HashMap::new(),
                 recent_presence: HashMap::new(),
                 topic,
             }),
@@ -559,9 +557,7 @@ impl Bridge {
         if self.server.stream_addr.is_none() {
             self.deliver_feed(&settings).await?;
         }
-        if self.config.bridge.watch_alerts {
-            self.deliver_watch_alerts().await?;
-        }
+        self.deliver_watchbridge(&settings).await?;
         self.inner
             .write()
             .await
@@ -644,7 +640,14 @@ impl Bridge {
         }
         let channel_id = settings.channel_id.as_ref().unwrap();
         for payload in self.render(rows, &settings) {
-            self.send_embeds(channel_id, payload).await?;
+            // Not `?` — a failure here must not block the cursor advance below.
+            if let Err(err) = self.send_embeds(channel_id, payload).await {
+                tracing::error!(
+                    "[bridge:{}] failed to post to channel {channel_id}: {err:#}",
+                    self.server.key
+                );
+                break;
+            }
         }
         let mut inner = self.inner.write().await;
         if let Some(last) = rows.last() {
@@ -781,7 +784,14 @@ impl Bridge {
         let posted = !by_channel.is_empty();
         for (channel_id, channel_rows) in by_channel {
             for payload in self.render(&channel_rows, settings) {
-                self.send_embeds(&channel_id, payload).await?;
+                // Not `?` — a failure here must not block the cursor advance below.
+                if let Err(err) = self.send_embeds(&channel_id, payload).await {
+                    tracing::error!(
+                        "[bridge:{}] failed to post to channel {channel_id}: {err:#}",
+                        self.server.key
+                    );
+                    break;
+                }
             }
         }
         if posted {
@@ -826,94 +836,67 @@ impl Bridge {
         }
     }
 
-    async fn deliver_watch_alerts(&self) -> eyre::Result<()> {
-        let (event_cursor, event_cursor_at) = {
+    /// Embeds a watched player's join/leave into the watchbridge channel.
+    async fn deliver_watchbridge(&self, settings: &crate::database::BridgeSettings) -> eyre::Result<()> {
+        let (cursor, cursor_at) = {
             let inner = self.inner.read().await;
             (inner.event_cursor, inner.event_cursor_at)
         };
-        let hits = self
+        let Some(channel_id) = self.db.get_watchbridge_channel(&self.server.key).await? else {
+            return self.advance_event_cursor(cursor).await;
+        };
+
+        let rows = self
             .db
-            .fetch_watch_hits(
-                &self.server.key,
-                event_cursor,
-                event_cursor_at,
-                WATCH_HITS_PER_TICK,
-            )
+            .fetch_watchbridge_hits(&self.server.key, cursor, cursor_at, WATCHBRIDGE_HITS_PER_TICK)
             .await?;
 
-        if !hits.is_empty() {
-            let mut by_channel: HashMap<String, Vec<WatchHit>> = HashMap::new();
-            {
+        if !rows.is_empty() {
+            let deduped = {
                 let mut inner = self.inner.write().await;
-                for hit in &hits {
-                    if Self::is_duplicate(&mut inner.recent_alerts, hit) {
-                        continue;
-                    }
-                    by_channel
-                        .entry(hit.channel_id.clone())
-                        .or_default()
-                        .push(hit.clone());
-                }
-            }
-
-            for (channel_id, channel_hits) in by_channel {
-                let mut lines = Vec::new();
-                let mut users = Vec::new();
-                for hit in &channel_hits {
-                    users.push(hit.user_id.parse::<u64>().unwrap_or(0));
-                    let where_ = hit.server_host.as_deref().unwrap_or(&self.server.label);
-                    lines.push(format!(
-                        "{} {} {where_} — <@{}>",
-                        player_name(Some(&hit.player_name)),
-                        if hit.event_type == "join" || hit.event_type == "j" {
-                            "joined"
-                        } else {
-                            "left"
-                        },
-                        hit.user_id
-                    ));
-                }
-                let content: String = lines.join("\n").chars().take(Limits::CONTENT).collect();
-                let allowed = serenity::builder::CreateAllowedMentions::new()
-                    .all_users(false)
-                    .all_roles(false)
-                    .everyone(false)
-                    .users(
-                        users
-                            .into_iter()
-                            .filter(|&u| u != 0)
-                            .map(serenity::UserId::new),
-                    );
-                if let Err(err) = ChannelId::new(channel_id.parse()?)
-                    .send_message(
-                        &self.http,
-                        CreateMessage::new()
-                            .content(content)
-                            .allowed_mentions(allowed),
-                    )
-                    .await
-                {
+                rows.iter()
+                    .cloned()
+                    .filter_map(|row| Self::unique_presence(&mut inner.recent_watchbridge, row))
+                    .collect::<Vec<_>>()
+            };
+            for payload in self.render(&deduped, settings) {
+                if let Err(err) = self.send_embeds(&channel_id, payload).await {
                     tracing::error!(
-                        "[bridge:{}] watch alert to {channel_id} failed: {err}",
+                        "[bridge:{}] watchbridge post to {channel_id} failed: {err:#}",
                         self.server.key
                     );
+                    break;
                 }
             }
         }
 
-        let (highest, highest_at) = if hits.len() as i64 == WATCH_HITS_PER_TICK {
-            hits.last()
-                .map(|h| (h.id, Some(h.occurred_at)))
-                .unwrap_or((event_cursor, event_cursor_at))
+        let (highest, highest_at) = if rows.len() as i64 == WATCHBRIDGE_HITS_PER_TICK {
+            rows.last()
+                .map(|r| (r.id, Some(r.received_at)))
+                .unwrap_or((cursor, cursor_at))
         } else {
             self.db.latest_player_event_cursor(&self.server.key).await?
         };
-        let mut inner = self.inner.write().await;
-        if highest > inner.event_cursor {
+        if highest > cursor {
+            let mut inner = self.inner.write().await;
             inner.event_cursor = highest;
             inner.event_cursor_at = highest_at;
             self.db
                 .set_event_cursor(&self.server.key, highest, highest_at)
+                .await?;
+        }
+        Ok(())
+    }
+
+    /// No channel yet — still catch the cursor up to avoid a backlog dump later.
+    async fn advance_event_cursor(&self, cursor: i64) -> eyre::Result<()> {
+        let (latest, latest_at) = self.db.latest_player_event_cursor(&self.server.key).await?;
+        if latest > cursor {
+            let mut inner = self.inner.write().await;
+            inner.event_cursor = latest;
+            inner.event_cursor_at = latest_at;
+            self.db
+                .set_event_cursor(&self.server.key, latest, latest_at)
                 .await?;
         }
         Ok(())
@@ -933,7 +916,8 @@ impl Bridge {
         if name.is_empty() {
             return None;
         }
-        Some(format!("{kind}:{name}"))
+        let host = row.server_host.as_deref().unwrap_or("");
+        Some(format!("{kind}:{host}:{name}"))
     }
 
     /// Drop a second join/leave for the same player within a few seconds
@@ -949,23 +933,6 @@ impl Bridge {
         }
         recent.insert(key, now);
         Some(row)
-    }
-
-    fn is_duplicate(recent: &mut HashMap<String, Instant>, hit: &WatchHit) -> bool {
-        let now = Instant::now();
-        recent.retain(|_, at| now.duration_since(*at) <= DUPLICATE_WINDOW);
-        let key = format!(
-            "{}:{}:{}:{}",
-            hit.channel_id,
-            hit.user_id,
-            hit.player_name.to_lowercase(),
-            hit.event_type
-        );
-        if recent.contains_key(&key) {
-            return true;
-        }
-        recent.insert(key, now);
-        false
     }
 
     async fn send_embeds(

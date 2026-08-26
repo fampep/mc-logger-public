@@ -8,6 +8,7 @@ pub mod leaderboard;
 pub mod message_log;
 pub mod shared;
 pub mod stats;
+pub mod watchbridge;
 
 use crate::{Data, Error};
 
@@ -21,5 +22,6 @@ pub fn commands() -> Vec<poise::Command<Data, Error>> {
         chatbridge::chatbridge(),
         database::database(),
         command_channel::commandchannel(),
+        watchbridge::watchbridge(),
     ]
 }

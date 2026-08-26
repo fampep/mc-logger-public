@@ -192,35 +192,11 @@ impl Db {
             ALTER TABLE discord_bridge_state ADD COLUMN IF NOT EXISTS last_presence_at TIMESTAMPTZ;
             ALTER TABLE discord_bridge_state ADD COLUMN IF NOT EXISTS style TEXT NOT NULL DEFAULT 'rich';
             ALTER TABLE discord_bridge_state ADD COLUMN IF NOT EXISTS rainbow BOOLEAN NOT NULL DEFAULT false;
-            CREATE TABLE IF NOT EXISTS discord_watchlist (
-              id          BIGSERIAL PRIMARY KEY,
-              player_name TEXT        NOT NULL,
-              user_id     TEXT        NOT NULL,
-              channel_id  TEXT        NOT NULL,
-              events      TEXT        NOT NULL DEFAULT 'both',
-              created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
-            );
-            CREATE UNIQUE INDEX IF NOT EXISTS discord_watchlist_player_user_idx
-              ON discord_watchlist (lower(player_name), user_id);
             CREATE TABLE IF NOT EXISTS discord_online_peaks (
               day  DATE PRIMARY KEY,
               peak INTEGER     NOT NULL,
               at   TIMESTAMPTZ NOT NULL DEFAULT now()
             );
-            CREATE TABLE IF NOT EXISTS queue_status (
-              id         BOOLEAN PRIMARY KEY DEFAULT true,
-              position   INTEGER,
-              raw_text   TEXT,
-              in_queue   BOOLEAN     NOT NULL DEFAULT false,
-              updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-              CONSTRAINT queue_status_one_row CHECK (id)
-            );
-            CREATE TABLE IF NOT EXISTS queue_samples (
-              id          BIGSERIAL PRIMARY KEY,
-              position    INTEGER     NOT NULL,
-              recorded_at TIMESTAMPTZ NOT NULL DEFAULT now()
-            );
-            CREATE INDEX IF NOT EXISTS queue_samples_recorded_idx ON queue_samples (recorded_at DESC);
             CREATE TABLE IF NOT EXISTS discord_event_routes (
               kind        TEXT PRIMARY KEY,
               enabled     BOOLEAN NOT NULL DEFAULT true,
@@ -760,44 +736,145 @@ impl Db {
             .collect())
     }
 
-    pub async fn fetch_watch_hits(
+    pub async fn ensure_watchbridge_tables(&self, server_key: &str) -> eyre::Result<()> {
+        let client = self.client(server_key).await?;
+        client
+            .batch_execute(
+                r#"CREATE TABLE IF NOT EXISTS discord_watchbridge_state (
+              id          BOOLEAN PRIMARY KEY DEFAULT true,
+              channel_id  TEXT,
+              updated_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+              CONSTRAINT discord_watchbridge_state_one_row CHECK (id)
+            );
+            CREATE TABLE IF NOT EXISTS discord_watchbridge_players (
+              player_name TEXT PRIMARY KEY,
+              added_by    TEXT,
+              created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+            )"#,
+            )
+            .await?;
+        Ok(())
+    }
+
+    pub async fn get_watchbridge_channel(&self, server_key: &str) -> eyre::Result<Option<String>> {
+        self.ensure_watchbridge_tables(server_key).await?;
+        let client = self.client(server_key).await?;
+        let row = client
+            .query_opt(
+                "SELECT channel_id FROM discord_watchbridge_state WHERE id = true",
+                &[],
+            )
+            .await?;
+        Ok(row.and_then(|r| r.get(0)))
+    }
+
+    pub async fn set_watchbridge_channel(
+        &self,
+        server_key: &str,
+        channel_id: Option<&str>,
+    ) -> eyre::Result<()> {
+        self.ensure_watchbridge_tables(server_key).await?;
+        let client = self.client(server_key).await?;
+        client
+            .execute(
+                r#"INSERT INTO discord_watchbridge_state (id, channel_id, updated_at)
+             VALUES (true, $1, now())
+             ON CONFLICT (id) DO UPDATE SET channel_id = EXCLUDED.channel_id, updated_at = now()"#,
+                &[&channel_id],
+            )
+            .await?;
+        Ok(())
+    }
+
+    pub async fn add_watchbridge_player(
+        &self,
+        server_key: &str,
+        player_name: &str,
+        added_by: &str,
+    ) -> eyre::Result<()> {
+        self.ensure_watchbridge_tables(server_key).await?;
+        let client = self.client(server_key).await?;
+        client
+            .execute(
+                r#"INSERT INTO discord_watchbridge_players (player_name, added_by)
+                   VALUES ($1, $2)
+                   ON CONFLICT (player_name) DO NOTHING"#,
+                &[&player_name, &added_by],
+            )
+            .await?;
+        Ok(())
+    }
+
+    /// Returns whether a matching player existed.
+    pub async fn remove_watchbridge_player(
+        &self,
+        server_key: &str,
+        player_name: &str,
+    ) -> eyre::Result<bool> {
+        self.ensure_watchbridge_tables(server_key).await?;
+        let client = self.client(server_key).await?;
+        let deleted = client
+            .execute(
+                "DELETE FROM discord_watchbridge_players WHERE lower(player_name) = lower($1)",
+                &[&player_name],
+            )
+            .await?;
+        Ok(deleted > 0)
+    }
+
+    pub async fn list_watchbridge_players(&self, server_key: &str) -> eyre::Result<Vec<String>> {
+        self.ensure_watchbridge_tables(server_key).await?;
+        let client = self.client(server_key).await?;
+        let rows = client
+            .query(
+                "SELECT player_name FROM discord_watchbridge_players ORDER BY lower(player_name)",
+                &[],
+            )
+            .await?;
+        Ok(rows.into_iter().map(|r| r.get(0)).collect())
+    }
+
+    /// Join/leave events for watchlisted players, as `ChatRow`s.
+    pub async fn fetch_watchbridge_hits(
         &self,
         server_key: &str,
         after_id: i64,
         after_at: Option<DateTime<Utc>>,
         limit: i64,
-    ) -> eyre::Result<Vec<WatchHit>> {
+    ) -> eyre::Result<Vec<ChatRow>> {
         let client = self.client(server_key).await?;
+        let codes: Vec<String> = vec!["j".into(), "l".into()];
         let rows = client
             .query(
-                // player_events_raw, not the view — avoids unpacking the archive per poll.
-                r#"SELECT e.id, e.occurred_at, e.event_type::text, nd.name AS player_name,
-            s.server_host,
-            w.user_id, w.channel_id
-     FROM player_events_raw e
-     JOIN name_dict nd ON nd.id = e.player_id
-     LEFT JOIN sessions s ON s.id = e.session_id
-     JOIN discord_watchlist w
-       ON lower(w.player_name) = lower(nd.name)
-      AND (w.events = 'both' OR w.events = e.event_type::text
-           OR w.events = CASE e.event_type::text WHEN 'j' THEN 'join' WHEN 'l' THEN 'leave' ELSE e.event_type::text END)
-     WHERE e.id > $1 AND e.event_type IN ('j'::"char", 'l'::"char")
-       AND ($3::timestamptz IS NULL OR e.occurred_at >= $3 - interval '1 hour')
-     ORDER BY e.id
-     LIMIT $2"#,
-                &[&after_id, &limit, &after_at],
+                r#"SELECT e.id, e.occurred_at, e.event_type::text, nd.name, s.server_host
+                 FROM player_events_raw e
+                 JOIN name_dict nd ON nd.id = e.player_id
+                 LEFT JOIN sessions s ON s.id = e.session_id
+                 JOIN discord_watchbridge_players wp ON lower(wp.player_name) = lower(nd.name)
+                 WHERE e.id > $1 AND left(btrim(e.event_type::text), 1) = ANY($2)
+                   AND e.source <> 'r'
+                   AND ($4::timestamptz IS NULL OR e.occurred_at >= $4 - interval '1 hour')
+                 ORDER BY e.id
+                 LIMIT $3"#,
+                &[&after_id, &codes, &limit, &after_at],
             )
             .await?;
         Ok(rows
             .into_iter()
-            .map(|r| WatchHit {
-                id: r.get(0),
-                occurred_at: r.get(1),
-                event_type: r.get(2),
-                player_name: r.get(3),
-                server_host: r.get(4),
-                user_id: r.get(5),
-                channel_id: r.get(6),
+            .filter_map(|r| {
+                let event_type: String = r.get(2);
+                let kind = presence_kind(&event_type)?.to_string();
+                Some(ChatRow {
+                    id: r.get(0),
+                    received_at: r.get(1),
+                    kind,
+                    sender_name: None,
+                    sender_label: None,
+                    subject_name: Some(r.get(3)),
+                    killer_name: None,
+                    plain_text: String::new(),
+                    server_host: r.get(4),
+                })
             })
             .collect())
     }

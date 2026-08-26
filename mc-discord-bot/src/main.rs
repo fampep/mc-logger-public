@@ -85,24 +85,13 @@ async fn main() -> eyre::Result<()> {
                         let embed = ui::failure(
                             "That did not work",
                             &format!(
-                                "`/{}` could not finish. The database may be unreachable — try `/server status`.",
+                                "`/{}` could not finish. The database may be unreachable — try `/database`.",
                                 ctx.command().name
                             ),
                         );
-                        let reply = poise::CreateReply::default().embed(embed).ephemeral(true);
-                        if ctx.say("").await.is_err() {
-                            let _ = ctx.send(reply).await;
-                        } else {
-                            let _ = ctx
-                                .send(poise::CreateReply::default().embed(ui::failure(
-                                    "That did not work",
-                                    &format!(
-                                        "`/{}` could not finish. Try `/server status`.",
-                                        ctx.command().name
-                                    ),
-                                )))
-                                .await;
-                        }
+                        let _ = ctx
+                            .send(poise::CreateReply::default().embed(embed).ephemeral(true))
+                            .await;
                     } else if let poise::FrameworkError::GuildOnly { ctx, .. } = error {
                         // guild_only stops poise treating a DM as all-permissions-granted.
                         tracing::warn!(

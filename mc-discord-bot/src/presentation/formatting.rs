@@ -143,7 +143,6 @@ pub struct Limits;
 impl Limits {
     pub const DESCRIPTION: usize = 4096;
     pub const FIELD: usize = 1024;
-    pub const CONTENT: usize = 1900;
     pub const TOPIC: usize = 1024;
 }
 
