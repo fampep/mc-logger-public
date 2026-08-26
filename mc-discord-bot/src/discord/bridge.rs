@@ -20,8 +20,8 @@ use crate::presentation::heads;
 
 const PRESENCE_DEDUP: Duration = Duration::from_secs(20);
 const WATCHBRIDGE_HITS_PER_TICK: i64 = 200;
-const DISCORD_429_RETRIES: u8 = 8;
-const DISCORD_429_FALLBACK: Duration = Duration::from_secs(2);
+const DISCORD_RETRY_ATTEMPTS: u8 = 8;
+const DISCORD_RETRY_FALLBACK: Duration = Duration::from_secs(2);
 
 fn route_channel(
     row: &ChatRow,
@@ -954,19 +954,23 @@ impl Bridge {
             match id.send_message(&self.http, msg).await {
                 Ok(_) => return Ok(()),
                 Err(err) => {
-                    if !is_discord_429(&err) {
+                    // Permanent errors (bad permissions, deleted channel) fail fast;
+                    // anything else — including 429s and transient API hiccups like a
+                    // non-JSON error body — gets a bounded, backed-off retry instead
+                    // of silently losing the message on the first blip.
+                    if is_permanent_discord_error(&err) {
                         return Err(err.into());
                     }
                     attempts += 1;
-                    if attempts >= DISCORD_429_RETRIES {
+                    if attempts >= DISCORD_RETRY_ATTEMPTS {
                         return Err(err.into());
                     }
                     let wait = discord_429_wait(&err).unwrap_or_else(|| {
-                        DISCORD_429_FALLBACK.saturating_mul(u32::from(attempts))
+                        DISCORD_RETRY_FALLBACK.saturating_mul(u32::from(attempts))
                     });
                     let wait = wait.min(Duration::from_secs(15));
                     tracing::warn!(
-                        "[bridge:{}] Discord 429 on {channel_id}, retry in {:.2}s",
+                        "[bridge:{}] send to {channel_id} failed ({err}), retry {attempts}/{DISCORD_RETRY_ATTEMPTS} in {:.2}s",
                         self.server.key,
                         wait.as_secs_f32()
                     );
@@ -999,12 +1003,16 @@ fn accept_stream_event(
     Some(event)
 }
 
-fn is_discord_429(err: &serenity::Error) -> bool {
-    matches!(
-        err,
-        serenity::Error::Http(serenity::http::HttpError::UnsuccessfulRequest(resp))
-            if resp.status_code.as_u16() == 429
-    )
+/// Errors no amount of retrying will fix — bad permissions or a channel
+/// that's gone. Everything else (429s, transient API hiccups) gets retried.
+fn is_permanent_discord_error(err: &serenity::Error) -> bool {
+    let msg = err.to_string();
+    msg.contains("Missing Access")
+        || msg.contains("Missing Permissions")
+        || msg.contains("Unknown Channel")
+        || msg.contains("50013")
+        || msg.contains("50001")
+        || msg.contains("10003")
 }
 
 /// Retry-After from a real 429 body. Ignore Serenity's "line 1 column 1" decode text.
