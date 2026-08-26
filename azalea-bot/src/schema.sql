@@ -1039,6 +1039,60 @@ CREATE TABLE IF NOT EXISTS queue_samples (
 );
 
 CREATE INDEX IF NOT EXISTS queue_samples_recorded_idx ON queue_samples (recorded_at DESC);
+CREATE INDEX IF NOT EXISTS queue_samples_position_recorded_idx
+  ON queue_samples (position, recorded_at DESC);
+
+-- Daily queue rollups keep long-term trend queries off the raw sample table.
+CREATE TABLE IF NOT EXISTS queue_daily (
+  day            DATE    PRIMARY KEY,
+  samples        INTEGER NOT NULL DEFAULT 0,
+  queued_samples INTEGER NOT NULL DEFAULT 0,
+  min_position   INTEGER,
+  max_position   INTEGER,
+  avg_position   NUMERIC(10,2),
+  last_position  INTEGER,
+  last_seen_at   TIMESTAMPTZ
+);
+
+CREATE OR REPLACE FUNCTION refresh_queue_daily(lo date, hi date)
+RETURNS void LANGUAGE plpgsql AS $fn$
+BEGIN
+  DELETE FROM queue_daily WHERE day >= lo AND day <= hi;
+
+  INSERT INTO queue_daily (day, samples, queued_samples, min_position, max_position,
+                           avg_position, last_position, last_seen_at)
+  WITH days AS (
+    SELECT gs.d::date AS day
+    FROM generate_series(lo, hi, interval '1 day') AS gs(d)
+  ),
+  grouped AS (
+    SELECT (qs.recorded_at AT TIME ZONE 'UTC')::date AS day,
+           count(*)::int AS samples,
+           count(*) FILTER (WHERE qs.position IS NOT NULL)::int AS queued_samples,
+           min(qs.position) AS min_position,
+           max(qs.position) AS max_position,
+           round(avg(qs.position)::numeric, 2) AS avg_position,
+           (array_agg(qs.position ORDER BY qs.recorded_at DESC, qs.id DESC)
+             FILTER (WHERE qs.position IS NOT NULL))[1] AS last_position,
+           max(qs.recorded_at) AS last_seen_at
+    FROM queue_samples qs
+    WHERE (qs.recorded_at AT TIME ZONE 'UTC')::date >= lo
+      AND (qs.recorded_at AT TIME ZONE 'UTC')::date <= hi
+    GROUP BY 1
+  )
+  SELECT d.day,
+         coalesce(g.samples, 0),
+         coalesce(g.queued_samples, 0),
+         g.min_position,
+         g.max_position,
+         g.avg_position,
+         g.last_position,
+         g.last_seen_at
+  FROM days d
+  LEFT JOIN grouped g USING (day)
+  WHERE g.day IS NOT NULL;
+END;
+$fn$;
 
 -- Server-seeker discoveries live in tools/server-seeker/schema.sql (discovered_servers).
 -- Apply that file to the SEEKER_DATABASE_URL database used by mc-discord-bot.
@@ -1061,6 +1115,9 @@ CREATE TABLE IF NOT EXISTS logger_heartbeats (
 
 CREATE INDEX IF NOT EXISTS logger_heartbeats_host_idx
   ON logger_heartbeats (server_host, role, updated_at DESC);
+CREATE INDEX IF NOT EXISTS logger_heartbeats_connected_idx
+  ON logger_heartbeats (server_host, updated_at DESC)
+  WHERE connected;
 
 -- The server's own player count, parsed straight from its tab-list header
 -- ("Online players: 504", "587 players online") — a number the server
@@ -1069,3 +1126,69 @@ CREATE INDEX IF NOT EXISTS logger_heartbeats_host_idx
 -- reconstruct player-by-player. Written whenever it changes, not on a timer.
 ALTER TABLE logger_heartbeats ADD COLUMN IF NOT EXISTS reported_online INTEGER;
 ALTER TABLE logger_heartbeats ADD COLUMN IF NOT EXISTS reported_online_at TIMESTAMPTZ;
+
+-- One row per heartbeat edge/sample for long-term operations visibility.
+-- The live table above answers "what is true now?"; this one answers
+-- "what kept flapping last night?" without losing history on every upsert.
+CREATE TABLE IF NOT EXISTS logger_heartbeat_samples (
+  id              BIGSERIAL PRIMARY KEY,
+  instance        TEXT        NOT NULL,
+  role            TEXT        NOT NULL,
+  server_host     TEXT        NOT NULL,
+  session_id      BIGINT,
+  bot_username    TEXT,
+  connected       BOOLEAN     NOT NULL,
+  writing         BOOLEAN     NOT NULL,
+  reported_online INTEGER,
+  sampled_at      TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS logger_heartbeat_samples_instance_idx
+  ON logger_heartbeat_samples (instance, sampled_at DESC);
+CREATE INDEX IF NOT EXISTS logger_heartbeat_samples_host_idx
+  ON logger_heartbeat_samples (server_host, sampled_at DESC);
+CREATE INDEX IF NOT EXISTS logger_heartbeat_samples_connected_idx
+  ON logger_heartbeat_samples (server_host, connected, sampled_at DESC);
+
+CREATE OR REPLACE VIEW logger_latest_heartbeat AS
+  SELECT DISTINCT ON (instance)
+         instance, role, server_host, session_id, bot_username,
+         connected, writing, reported_online, sampled_at
+  FROM logger_heartbeat_samples
+  ORDER BY instance, sampled_at DESC, id DESC;
+
+CREATE OR REPLACE FUNCTION cleanup_operational_data(
+  heartbeat_days integer DEFAULT 30,
+  queue_sample_days integer DEFAULT 90,
+  plugin_scan_days integer DEFAULT 180
+)
+RETURNS TABLE (table_name text, deleted_rows bigint)
+LANGUAGE plpgsql AS $fn$
+DECLARE n bigint;
+BEGIN
+  IF heartbeat_days < 1 OR queue_sample_days < 1 OR plugin_scan_days < 1 THEN
+    RAISE EXCEPTION 'retention windows must all be at least 1 day';
+  END IF;
+
+  DELETE FROM logger_heartbeat_samples
+   WHERE sampled_at < now() - make_interval(days => heartbeat_days);
+  GET DIAGNOSTICS n = ROW_COUNT;
+  table_name := 'logger_heartbeat_samples';
+  deleted_rows := n;
+  RETURN NEXT;
+
+  DELETE FROM queue_samples
+   WHERE recorded_at < now() - make_interval(days => queue_sample_days);
+  GET DIAGNOSTICS n = ROW_COUNT;
+  table_name := 'queue_samples';
+  deleted_rows := n;
+  RETURN NEXT;
+
+  DELETE FROM server_plugin_scans
+   WHERE scanned_at < now() - make_interval(days => plugin_scan_days);
+  GET DIAGNOSTICS n = ROW_COUNT;
+  table_name := 'server_plugin_scans';
+  deleted_rows := n;
+  RETURN NEXT;
+END;
+$fn$;

@@ -109,32 +109,35 @@ pub async fn status(
     } else {
         config.servers.clone()
     };
-    let mut rows = Vec::new();
-    for s in servers {
-        match (
-            ctx.data().db.get_bridge_settings(&s.key).await,
-            ctx.data().bridges.get(&s.key),
-        ) {
-            (Ok(settings), Some(bridge)) => {
-                let cursor = bridge.current_cursor().await;
-                let behind = ctx
-                    .data()
-                    .db
-                    .count_backlog(&s.key, cursor, None, &config.bridge.kinds)
-                    .await
-                    .unwrap_or(0);
-                rows.push((
-                    s.label,
-                    settings.channel_id,
-                    settings.enabled,
-                    None,
-                    Some(behind),
-                ));
+    let rows = futures::future::join_all(servers.into_iter().map(|s| {
+        let kinds = config.bridge.kinds.clone();
+        async move {
+            match (
+                ctx.data().db.get_bridge_settings(&s.key).await,
+                ctx.data().bridges.get(&s.key),
+            ) {
+                (Ok(settings), Some(bridge)) => {
+                    let cursor = bridge.current_cursor().await;
+                    let behind = ctx
+                        .data()
+                        .db
+                        .count_backlog(&s.key, cursor, None, &kinds)
+                        .await
+                        .unwrap_or(0);
+                    (
+                        s.label,
+                        settings.channel_id,
+                        settings.enabled,
+                        None,
+                        Some(behind),
+                    )
+                }
+                (Err(err), _) => (s.label, None, false, Some(err.to_string()), None),
+                _ => (s.label, None, false, Some("bridge missing".into()), None),
             }
-            (Err(err), _) => rows.push((s.label, None, false, Some(err.to_string()), None)),
-            _ => rows.push((s.label, None, false, Some("bridge missing".into()), None)),
         }
-    }
+    }))
+    .await;
     ctx.send(
         CreateReply::default()
             .embed(build_bridge_status_embed(&rows))

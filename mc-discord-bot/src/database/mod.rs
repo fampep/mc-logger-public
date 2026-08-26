@@ -13,14 +13,8 @@ use crate::config::{BridgeStyle, Config};
 
 const LIVENESS_WINDOW: &str = "interval '30 minutes'";
 
-/// Oldest and newest logged line, across both sides of the hot window.
-///
-/// Since r11 only the last few days live in `chat_messages_raw`; everything
-/// older is a zstd column bucket. `max(received_at)` over the `chat_messages`
-/// view therefore means "decompress the entire archive to find one timestamp",
-/// which is a few hundred milliseconds today and minutes after a year. Each
-/// bucket already records its own bounds, so asking those instead is an
-/// indexed max on the cold side and a BRIN-pruned one on the hot side.
+/// Oldest/newest logged line. Uses each archive bucket's own min/max instead
+/// of scanning `chat_messages`, which would decompress the whole archive.
 const NEWEST_CHAT_AT: &str = "(SELECT max(t) FROM (
       SELECT max(received_at) AS t FROM chat_messages_raw
       UNION ALL SELECT max(max_at) FROM chat_archive) q)";
@@ -28,13 +22,8 @@ const OLDEST_CHAT_AT: &str = "(SELECT min(t) FROM (
       SELECT min(received_at) AS t FROM chat_messages_raw
       UNION ALL SELECT min(min_at) FROM chat_archive) q)";
 
-/// Prefers the server's own live-broadcast count (`logger_heartbeats.reported_online`,
-/// parsed by azalea-bot straight from the tab-list header — "Online players:
-/// 504" — and written the instant it changes) over the roster-based count
-/// when a connected logger has reported one within the last 30 seconds.
-/// The roster is reconstructed player-by-player from PlayerInfoUpdate
-/// packets and can take minutes to catch up after a reconnect on a large
-/// server; the server's own broadcast number updates in about a second.
+/// Prefers the server's own broadcast online count (updates in ~1s) over the
+/// roster count (can take minutes to catch up after a reconnect).
 const ONLINE_COUNT_SQL: &str = "COALESCE(
       (SELECT reported_online FROM logger_heartbeats
         WHERE connected AND reported_online IS NOT NULL
@@ -43,12 +32,7 @@ const ONLINE_COUNT_SQL: &str = "COALESCE(
       (SELECT count(*) FROM discord_online_now)
     )";
 
-/// Sessions that are still open and still writing.
-///
-/// Reads the physical tables rather than the r8 compatibility views: both
-/// halves are bounded to the last 30 minutes, so the BRIN on the timestamp
-/// prunes them to the newest pages, and the name joins the views add would be
-/// pure waste here — this only ever looks at session ids.
+/// Sessions still open and still writing, within the last 30 minutes.
 const LIVE_SESSIONS: &str = r#"
   SELECT DISTINCT written.session_id
   FROM (
@@ -63,15 +47,6 @@ const LIVE_SESSIONS: &str = r#"
 "#;
 
 /// Players currently visible to at least one live logger session.
-///
-/// Per-session first (so a leave in the lobby does not hide someone still on
-/// the survival bot's tab list), then unioned by name. Needed when two bots
-/// share a database — e.g. 6b6t lobby + survival.
-///
-/// Since r8 this reads `player_presence`, one row per (session, player), which
-/// the logger upserts as people come and go. It used to DISTINCT ON over every
-/// row `player_events` had ever held, which is fine at a million rows and
-/// hopeless at a billion.
 const PRESENCE_VIEW: &str = r#"
   CREATE OR REPLACE VIEW discord_online_now AS
     SELECT DISTINCT ON (pp.server_host, lower(nd.name))
@@ -126,6 +101,47 @@ impl Db {
         &self.config.servers[0].key
     }
 
+    pub async fn ensure_command_channel_table(&self) -> eyre::Result<()> {
+        let client = self.client(self.default_server_key()).await?;
+        client
+            .batch_execute(
+                r#"CREATE TABLE IF NOT EXISTS discord_command_channel (
+              id          BOOLEAN PRIMARY KEY DEFAULT true,
+              channel_id  TEXT,
+              updated_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+              CONSTRAINT discord_command_channel_one_row CHECK (id)
+            )"#,
+            )
+            .await?;
+        Ok(())
+    }
+
+    pub async fn get_command_channel(&self) -> eyre::Result<Option<String>> {
+        self.ensure_command_channel_table().await?;
+        let client = self.client(self.default_server_key()).await?;
+        let row = client
+            .query_opt(
+                "SELECT channel_id FROM discord_command_channel WHERE id = true",
+                &[],
+            )
+            .await?;
+        Ok(row.and_then(|r| r.get(0)))
+    }
+
+    pub async fn set_command_channel(&self, channel_id: Option<&str>) -> eyre::Result<()> {
+        self.ensure_command_channel_table().await?;
+        let client = self.client(self.default_server_key()).await?;
+        client
+            .execute(
+                r#"INSERT INTO discord_command_channel (id, channel_id, updated_at)
+             VALUES (true, $1, now())
+             ON CONFLICT (id) DO UPDATE SET channel_id = EXCLUDED.channel_id, updated_at = now()"#,
+                &[&channel_id],
+            )
+            .await?;
+        Ok(())
+    }
+
     fn pool(&self, server_key: &str) -> eyre::Result<&Pool> {
         self.pools
             .get(server_key)
@@ -136,10 +152,7 @@ impl Db {
         Ok(self.pool(server_key)?.get().await?)
     }
 
-    /// Every (lowercase name, dashless uuid) this server knows.
-    ///
-    /// Loaded once at startup so heads resolve from memory. Tens of thousands
-    /// of rows at most, which is far cheaper than a lookup per new name.
+    /// Loaded once at startup so heads resolve from memory.
     pub async fn all_player_uuids(&self, server_key: &str) -> eyre::Result<Vec<(String, String)>> {
         let client = self.client(server_key).await?;
         let rows = client
@@ -160,9 +173,6 @@ impl Db {
     }
 
     pub async fn ensure_bridge_state(&self, server_key: &str) -> eyre::Result<()> {
-        // Leftover from SeekerBridge (removed): `discord_seeker_state` and
-        // `discovered_servers` may still exist if the standalone scanner ran.
-        // Not dropped here — review before deleting in case a scanner still writes.
         let client = self.client(server_key).await?;
         client
             .batch_execute(
@@ -217,10 +227,7 @@ impl Db {
               channel_id  TEXT,
               updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
             );
-            -- logger_heartbeats is azalea-bot's table; these columns land
-            -- here too so ONLINE_COUNT_SQL works even against a database
-            -- whose logger has not run the matching azalea-bot schema yet
-            -- (e.g. one with no active logger at all).
+            -- logger_heartbeats is azalea-bot's table; added here too for ONLINE_COUNT_SQL.
             ALTER TABLE logger_heartbeats ADD COLUMN IF NOT EXISTS reported_online INTEGER;
             ALTER TABLE logger_heartbeats ADD COLUMN IF NOT EXISTS reported_online_at TIMESTAMPTZ;
         "#,
@@ -431,7 +438,6 @@ impl Db {
         Ok(())
     }
 
-    /// Restore route kinds to `default_enabled` and drop per-kind channels.
     pub async fn reset_event_routes(
         &self,
         server_key: &str,
@@ -465,7 +471,6 @@ impl Db {
         Ok(())
     }
 
-    /// Disable the feed and wipe channel plus per-kind routes.
     pub async fn clear_bridge(&self, server_key: &str) -> eyre::Result<()> {
         let client = self.client(server_key).await?;
         client
@@ -623,10 +628,7 @@ impl Db {
         let codes = EventKind::filter_codes(kinds);
         let row = client
             .query_one(
-                // chat_messages_raw, not the view: this counts rows newer than
-                // the bridge cursor, and the archive holds only days that
-                // closed before the hot window began. Unpacking it to look for
-                // new rows would be pure waste on every poll.
+                // chat_messages_raw, not the view — avoids unpacking the archive on every poll.
                 "SELECT count(*)::bigint FROM chat_messages_raw
                  WHERE id > $1 AND left(btrim(kind::text), 1) = ANY($2)
                    AND ($3::timestamptz IS NULL OR received_at >= $3 - interval '1 hour')",
@@ -660,8 +662,6 @@ impl Db {
         server_key: &str,
     ) -> eyre::Result<(i64, Option<DateTime<Utc>>)> {
         let client = self.client(server_key).await?;
-        // Overshooting past snapshot rows is fine: the caller only wants to
-        // skip everything already recorded.
         latest_cursor(
             &client,
             "SELECT CASE WHEN is_called THEN last_value ELSE last_value - 1 END::bigint
@@ -690,9 +690,7 @@ impl Db {
                  JOIN name_dict nd ON nd.id = e.player_id
                  LEFT JOIN sessions s ON s.id = e.session_id
                  WHERE e.id > $1 AND left(btrim(e.event_type::text), 1) = ANY($2)
-                   -- source 'r' is a leave the logger synthesised when a restart
-                   -- countdown ran out. Real history, but posting several hundred
-                   -- of them the moment a server restarts is not a feed.
+                   -- 'r' = synthetic leave from a restart countdown; not real activity.
                    AND e.source <> 'r'
                    AND ($4::timestamptz IS NULL OR e.occurred_at >= $4 - interval '1 hour')
                  ORDER BY e.id
@@ -772,10 +770,7 @@ impl Db {
         let client = self.client(server_key).await?;
         let rows = client
             .query(
-                // player_events_raw, not the view. This runs on every watch
-                // poll and only ever wants rows newer than the cursor, so the
-                // archive half of the view could not match a single one -- it
-                // would just be decompressed and discarded each time.
+                // player_events_raw, not the view — avoids unpacking the archive per poll.
                 r#"SELECT e.id, e.occurred_at, e.event_type::text, nd.name AS player_name,
             s.server_host,
             w.user_id, w.channel_id
@@ -990,13 +985,7 @@ impl Db {
         let client = self.client(server_key).await?;
         let r = client
             .query_one(
-                // Lifetime totals come from player_daily, not from the log. The
-                // ten count(*) subqueries this replaced each scanned every
-                // message ever recorded; the rollup holds one row per player
-                // per day, so /stats is a few thousand rows at worst.
-                //
-                // first_seen / last_seen are the columns the logger already
-                // maintains on `players`, which is exact and free.
+                // Lifetime totals come from the player_daily rollup, not a full log scan.
                 r#"WITH me AS (
               SELECT nd.id AS name_id, nd.name, p.uuid, p.chat_rank, p.first_seen, p.last_seen
               FROM name_dict nd
@@ -1020,12 +1009,7 @@ impl Db {
                    t.messages, t.deaths, t.advancements, t.joins, t.leaves, t.kills,
                    (SELECT first_seen FROM me)                                      AS first_seen,
                    (SELECT last_seen FROM me)                                       AS last_seen,
-                   -- Spans the archive: an inactive player's last message will
-                   -- be in a packed day, and reporting NULL there would be
-                   -- worse than the cost of unpacking. Through the accessor
-                   -- rather than chat_archive_rows, so the name index skips
-                   -- every bucket that never mentions them -- the median name
-                   -- appears in one bucket, not all of them.
+                   -- Name-pruned accessor keeps this to the few buckets that mention them.
                    (SELECT max(c.received_at) FROM chat_rows_for_name(
                         (SELECT name_id FROM me),
                         '-infinity'::timestamptz, 'infinity'::timestamptz) c
@@ -1076,16 +1060,7 @@ impl Db {
         until_days: Option<i32>,
     ) -> eyre::Result<PlayerStats> {
         let client = self.client(server_key).await?;
-        // Every counter here comes out of player_daily, for the same reason
-        // window_stats does: these are up-to-90-day windows on a command people
-        // run constantly, and counting them from the log means unpacking the
-        // archive. Playtime is a rollup column since r11 rather than a lead()
-        // over the event log -- that scan was the one query in the bot that
-        // could not have survived archiving at all.
-        //
-        // first_seen / last_seen come from `players`, which the logger keeps
-        // current. They were unbounded min/max over player_events, which is the
-        // whole archive by definition.
+        // Counters come from the player_daily rollup, not a full log scan.
         let r = client
             .query_one(
                 r#"WITH me AS (
@@ -1113,9 +1088,7 @@ impl Db {
          COALESCE((SELECT sum(kills)        FROM d), 0)::bigint      AS kills,
          (SELECT first_seen FROM me)                                 AS first_seen,
          (SELECT last_seen  FROM me)                                 AS last_seen,
-         -- The one figure with no rollup behind it. Bounded to the window and
-         -- pruned to the buckets that name this player, so it reads a handful
-         -- of buckets rather than the archive.
+         -- No rollup for this one; name+window pruning keeps it to a handful of buckets.
          (SELECT max(c.received_at) FROM chat_rows_for_name(
               (SELECT name_id FROM me),
               COALESCE((SELECT lo FROM bounds)::timestamp AT TIME ZONE 'UTC',
@@ -1154,18 +1127,8 @@ impl Db {
         until_days: Option<i32>,
     ) -> eyre::Result<WindowStats> {
         let client = self.client(server_key).await?;
-        // Counted out of the daily rollups rather than the log itself.
-        //
-        // The window here is up to 90 days and can be `all`, so counting rows
-        // meant scanning most of the log; since r11 it would mean unpacking
-        // most of the archive too, on a command people run constantly. The
-        // rollups hold exactly these totals per UTC day and cost one index
-        // scan of a few hundred rows.
-        //
-        // The window is therefore whole UTC days now: `7d` means the last
-        // seven days including today, not the last 168 hours. Kills come from
-        // player_daily because those are PvP-only -- stats_daily.kills counts
-        // any death with a killer, mobs included.
+        // Daily rollups, not a log scan. Window is whole UTC days. Kills come from
+        // player_daily (PvP-only) — stats_daily.kills includes mob kills.
         let r = client
             .query_one(
                 r#"WITH bounds AS (
@@ -1228,12 +1191,7 @@ impl Db {
         name: &str,
     ) -> eyre::Result<(Vec<RivalRow>, Vec<RivalRow>)> {
         let client = self.client(server_key).await?;
-        // Through the name-pruned accessor rather than the player_kills view.
-        // The view has no name to prune on, so asking it for one player's
-        // rivals meant unpacking every bucket in the archive; here the GIN
-        // index picks out the buckets that mention them and skips the rest.
-        // The join to `players` is what the view did too: it keeps mobs off
-        // the list by requiring the killer to be a name we know as a player.
+        // Join to `players` excludes mob kills (no player row for the killer).
         let victims = client
             .query(
                 r#"WITH me AS (SELECT id FROM name_dict WHERE lower(name) = lower($1) LIMIT 1)
@@ -1339,14 +1297,13 @@ impl Db {
             .iter()
             .filter(|s| only_server_key.map(|k| k == s.key).unwrap_or(true))
             .collect();
-        let mut per_server: Vec<Vec<PlayerHit>> = Vec::new();
-        for server in &servers {
-            match self
-                .search_player_names(&server.key, prefix, limit as i64)
-                .await
-            {
-                Ok(names) => per_server.push(
-                    names
+        let per_server: Vec<Vec<PlayerHit>> = futures::future::join_all(servers.iter().map(
+            |server| async move {
+                match self
+                    .search_player_names(&server.key, prefix, limit as i64)
+                    .await
+                {
+                    Ok(names) => names
                         .into_iter()
                         .map(|name| PlayerHit {
                             name,
@@ -1354,13 +1311,14 @@ impl Db {
                             server_label: server.label.clone(),
                         })
                         .collect(),
-                ),
-                Err(err) => {
-                    tracing::error!("[db:{}] player search failed: {err}", server.key);
-                    per_server.push(Vec::new());
+                    Err(err) => {
+                        tracing::error!("[db:{}] player search failed: {err}", server.key);
+                        Vec::new()
+                    }
                 }
-            }
-        }
+            },
+        ))
+        .await;
         let mut hits = Vec::new();
         let mut seen = HashSet::new();
         let mut index = 0usize;
@@ -1387,8 +1345,7 @@ impl Db {
     }
 
     pub async fn servers_with_player(&self, name: &str) -> Vec<PlayerHit> {
-        let mut hits = Vec::new();
-        for server in &self.config.servers {
+        let hits = futures::future::join_all(self.config.servers.iter().map(|server| async move {
             match self.client(&server.key).await {
                 Ok(client) => {
                     match client
@@ -1400,22 +1357,27 @@ impl Db {
                     {
                         Ok(Some(row)) => {
                             let found: String = row.get(0);
-                            hits.push(PlayerHit {
+                            Some(PlayerHit {
                                 name: found,
                                 server_key: server.key.clone(),
                                 server_label: server.label.clone(),
-                            });
+                            })
                         }
-                        Ok(None) => {}
+                        Ok(None) => None,
                         Err(err) => {
-                            tracing::error!("[db:{}] player lookup failed: {err}", server.key)
+                            tracing::error!("[db:{}] player lookup failed: {err}", server.key);
+                            None
                         }
                     }
                 }
-                Err(err) => tracing::error!("[db:{}] player lookup failed: {err}", server.key),
+                Err(err) => {
+                    tracing::error!("[db:{}] player lookup failed: {err}", server.key);
+                    None
+                }
             }
-        }
-        hits
+        }))
+        .await;
+        hits.into_iter().flatten().collect()
     }
 
     pub async fn chat_history(
@@ -1426,12 +1388,7 @@ impl Db {
         let client = self.client(server_key).await?;
         let rows = client
             .query(
-                // Reads both sides of the hot window, because searching text
-                // is the one thing the archive genuinely has to be unpacked
-                // for. Both filters that can prune are pushed into the
-                // accessor: the name (via the bucket name index) and the time
-                // window. With neither given this is a full unpack, which is
-                // what "search every line ever logged" costs.
+                // Text search needs the archive unpacked; name/time filters prune what they can.
                 r#"SELECT c.received_at, nd.name AS sender_name, c.plain_text, s.server_host
      FROM chat_rows_for_name(
             (SELECT id FROM name_dict WHERE lower(name) = lower($1) LIMIT 1),
@@ -1493,7 +1450,7 @@ impl Db {
         Ok(row.get(0))
     }
 
-    /// Chat + whisper log for `/chat` and `/keyword`. Packed kinds `c`/`w` only.
+    /// Chat + whisper log for `/chat` and `/keyword`.
     pub async fn chat_log(
         &self,
         server_key: &str,
@@ -1502,12 +1459,7 @@ impl Db {
         let client = self.client(server_key).await?;
         let rows = client
             .query(
-                // Reads both sides of the hot window, because searching text
-                // is the one thing the archive genuinely has to be unpacked
-                // for. Both filters that can prune are pushed into the
-                // accessor: the name (via the bucket name index) and the time
-                // window. With neither given this is a full unpack, which is
-                // what "search every line ever logged" costs.
+                // Text search needs the archive unpacked; name/time filters prune what they can.
                 r#"SELECT c.received_at, nd.name AS sender_name, c.plain_text, s.server_host
      FROM chat_rows_for_name(
             (SELECT id FROM name_dict WHERE lower(name) = lower($1) LIMIT 1),
@@ -1583,12 +1535,7 @@ impl Db {
     SELECT (SELECT server_host FROM sessions ORDER BY started_at DESC LIMIT 1)   AS host,
            ({ONLINE_COUNT_SQL})::bigint                                         AS online,
            (SELECT peak FROM discord_online_peaks WHERE day = current_date)      AS peak_today,
-           -- The physical tables, not the compatibility views. Every window
-           -- here is an hour or a day, so it sits inside the hot window by
-           -- definition and the archive half of the view could only ever
-           -- contribute zero rows -- at the cost of decompressing all of it.
-           -- Counting distinct player_id rather than lower(player_name) is the
-           -- same answer: name_dict is unique on lower(name).
+           -- Physical tables, not the views — these windows never reach into the archive.
            (SELECT count(DISTINCT player_id) FROM player_events_raw
              WHERE occurred_at > now() - interval '24 hours')::bigint                    AS players_24h,
            (SELECT count(*) FROM chat_messages_raw
@@ -1639,22 +1586,16 @@ impl Db {
 
     pub async fn database_stats(&self, server_key: &str) -> eyre::Result<DatabaseStats> {
         let client = self.client(server_key).await?;
-        let meta = client
-            .query_one(
+        let span_sql = format!("SELECT {OLDEST_CHAT_AT} AS oldest, {NEWEST_CHAT_AT} AS newest");
+        let (meta, span, counts) = tokio::try_join!(
+            client.query_one(
                 r#"SELECT current_database() AS database,
               pg_size_pretty(pg_database_size(current_database())) AS size,
               pg_database_size(current_database())::bigint AS bytes"#,
                 &[],
-            )
-            .await?;
-        let span = client
-            .query_one(
-                &format!("SELECT {OLDEST_CHAT_AT} AS oldest, {NEWEST_CHAT_AT} AS newest"),
-                &[],
-            )
-            .await?;
-        let counts = client
-            .query_one(
+            ),
+            client.query_one(&span_sql, &[]),
+            client.query_one(
                 r#"SELECT (SELECT s.chat FROM logger_stats s WHERE s.id)::bigint          AS chat,
               (SELECT s.joins FROM logger_stats s WHERE s.id)::bigint    AS joins,
               (SELECT s.leaves FROM logger_stats s WHERE s.id)::bigint   AS leaves,
@@ -1664,8 +1605,8 @@ impl Db {
               (SELECT count(*) FROM players)::bigint                                    AS players,
               (SELECT count(*) FROM sessions)::bigint                                   AS sessions"#,
                 &[],
-            )
-            .await?;
+            ),
+        )?;
         Ok(DatabaseStats {
             database: meta.get(0),
             size: meta.get(1),
@@ -1691,16 +1632,7 @@ impl Db {
         since_days: Option<i32>,
     ) -> eyre::Result<Vec<EventRow>> {
         let client = self.client(server_key).await?;
-        // All four of these are "newest N", with no lower bound when the caller
-        // asks for `all`. Run them against the hot window first: it holds the
-        // last several days, so on a server still being logged it already
-        // contains the whole page and the archive is never opened. Only a
-        // server quiet for longer than the window comes up short, and only then
-        // is the query repeated across the archive too -- which for `all` means
-        // every bucket, so it is worth not doing by default.
-        //
-        // Both sources expose the physical column names, so one query body
-        // serves either and only the FROM clause changes.
+        // Tries the hot window first; only falls back to the archive if that came up short.
         const HOT_CHAT: &str = "chat_messages_raw c";
         const ALL_CHAT: &str =
             "chat_rows_for_name(NULL::int, '-infinity'::timestamptz, 'infinity'::timestamptz) c";
@@ -1805,8 +1737,6 @@ impl Db {
         let client = self.client(server_key).await?;
         let rows = client
             .query(
-                // Named, so the bucket name index prunes the archive down to
-                // the buckets this player actually appears in.
                 r#"WITH me AS (SELECT id FROM name_dict WHERE lower(name) = lower($1) LIMIT 1)
      SELECT c.received_at AS occurred_at, COALESCE(subj.name, $1) AS player_name,
        CASE
@@ -1941,22 +1871,8 @@ fn map_events(rows: Vec<tokio_postgres::Row>) -> Vec<EventRow> {
         .collect()
 }
 
-/// Newest (id, timestamp) in a log table, without a btree on `id`.
-///
-/// r8 drops the (id, received_at) primary key — ~31 bytes per row for an index
-/// nothing but this cursor read — so `max(id)` would be a full scan.
-///
-/// The id comes from the sequence instead. Every caller of this uses the result
-/// as "skip everything that already exists", so a value at or above the true
-/// maximum is correct and one below it is not: `last_value` is by definition at
-/// least every id ever handed out — minus one when the sequence has not been
-/// consumed yet, since `last_value` is then the id it is about to hand out. Scanning a recent window for the id would
-/// look equivalent but is not — rows are not written in timestamp order within
-/// a batch, so a windowed max(id) can land under the real maximum and replay
-/// old lines into Discord.
-///
-/// The timestamp is only a pruning hint for the follow-up fetch, so a widening
-/// probe is fine there; NULL just means the fetch runs without the bound.
+/// Newest (id, timestamp) in a log table. Uses the sequence for the id (no
+/// btree on `id` to scan) — must be >= the true max, or old rows replay into Discord.
 async fn latest_cursor(
     client: &deadpool_postgres::Object,
     id_sql: &str,

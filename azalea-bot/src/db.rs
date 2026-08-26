@@ -308,6 +308,16 @@ impl Db {
         connected: bool,
         writing: bool,
     ) -> eyre::Result<()> {
+        let current = self
+            .client
+            .query_opt(
+                "SELECT role, server_host, session_id, bot_username, connected, writing, reported_online
+                   FROM logger_heartbeats
+                  WHERE instance = $1",
+                &[&instance],
+            )
+            .await?;
+
         self.client
             .execute(
                 "INSERT INTO logger_heartbeats
@@ -332,6 +342,45 @@ impl Db {
                 ],
             )
             .await?;
+
+        let changed = match current {
+            None => true,
+            Some(row) => {
+                let prev_role: String = row.get(0);
+                let prev_host: String = row.get(1);
+                let prev_session_id: Option<i64> = row.get(2);
+                let prev_bot_username: Option<String> = row.get(3);
+                let prev_connected: bool = row.get(4);
+                let prev_writing: bool = row.get(5);
+                prev_role != role
+                    || prev_host != host
+                    || prev_session_id != Some(session_id)
+                    || prev_bot_username.as_deref() != bot_username
+                    || prev_connected != connected
+                    || prev_writing != writing
+            }
+        };
+
+        if changed {
+            let reported_online: Option<i32> = current.as_ref().and_then(|row| row.get(6));
+            self.client
+                .execute(
+                    "INSERT INTO logger_heartbeat_samples
+                       (instance, role, server_host, session_id, bot_username, connected, writing, reported_online)
+                     VALUES ($1,$2,$3,$4,$5,$6,$7,$8)",
+                    &[
+                        &instance,
+                        &role,
+                        &host,
+                        &session_id,
+                        &bot_username,
+                        &connected,
+                        &writing,
+                        &reported_online,
+                    ],
+                )
+                .await?;
+        }
         Ok(())
     }
 
@@ -339,14 +388,43 @@ impl Db {
     /// through — no batching, no waiting on the roster this same connection
     /// is separately reconstructing player-by-player.
     pub async fn set_reported_online(&self, instance: &str, count: i32) -> eyre::Result<()> {
-        self.client
-            .execute(
+        let row = self
+            .client
+            .query_opt(
                 "UPDATE logger_heartbeats
-                   SET reported_online = $2, reported_online_at = now()
-                 WHERE instance = $1",
+                    SET reported_online = $2, reported_online_at = now()
+                  WHERE instance = $1
+                RETURNING role, server_host, session_id, bot_username, connected, writing, reported_online",
                 &[&instance, &count],
             )
             .await?;
+
+        if let Some(row) = row {
+            let role: String = row.get(0);
+            let host: String = row.get(1);
+            let session_id: Option<i64> = row.get(2);
+            let bot_username: Option<String> = row.get(3);
+            let connected: bool = row.get(4);
+            let writing: bool = row.get(5);
+            let reported_online: Option<i32> = row.get(6);
+            self.client
+                .execute(
+                    "INSERT INTO logger_heartbeat_samples
+                       (instance, role, server_host, session_id, bot_username, connected, writing, reported_online)
+                     VALUES ($1,$2,$3,$4,$5,$6,$7,$8)",
+                    &[
+                        &instance,
+                        &role,
+                        &host,
+                        &session_id,
+                        &bot_username,
+                        &connected,
+                        &writing,
+                        &reported_online,
+                    ],
+                )
+                .await?;
+        }
         Ok(())
     }
 
@@ -463,18 +541,19 @@ impl Db {
         Ok(())
     }
 
-    /// Upsert the live queue probe row and append a sample when the position changes.
+    /// Upsert the live queue probe row and append a sample when the state changes.
     pub async fn upsert_queue_status(
         &self,
         position: Option<i32>,
         raw_text: &str,
         in_queue: bool,
     ) -> eyre::Result<()> {
-        let prev: Option<i32> = self
+        let prev = self
             .client
-            .query_opt("SELECT position FROM queue_status WHERE id = true", &[])
-            .await?
-            .and_then(|r| r.get(0));
+            .query_opt("SELECT position, in_queue FROM queue_status WHERE id = true", &[])
+            .await?;
+        let prev_position: Option<i32> = prev.as_ref().and_then(|r| r.get(0));
+        let prev_in_queue: Option<bool> = prev.as_ref().map(|r| r.get(1));
 
         self.client
             .execute(
@@ -489,15 +568,18 @@ impl Db {
             )
             .await?;
 
-        if let Some(pos) = position {
-            if prev != Some(pos) {
-                self.client
-                    .execute(
-                        "INSERT INTO queue_samples (position) VALUES ($1)",
-                        &[&pos],
-                    )
-                    .await?;
-            }
+        if prev_position != position || prev_in_queue != Some(in_queue) {
+            self.client
+                .execute(
+                    "INSERT INTO queue_samples (position) VALUES ($1)",
+                    &[&position],
+                )
+                .await?;
+
+            let today = chrono::Utc::now().date_naive();
+            self.client
+                .execute("SELECT refresh_queue_daily($1, $1)", &[&today])
+                .await?;
         }
         Ok(())
     }

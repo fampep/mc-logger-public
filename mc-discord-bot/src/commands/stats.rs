@@ -21,7 +21,7 @@ use crate::{Context, Error};
 
 type EventCache = Arc<Mutex<std::collections::HashMap<(usize, usize), Vec<EventRow>>>>;
 
-const PLAYER_PAGES: usize = 5;
+const PLAYER_PAGES: usize = 6;
 const LOG_LIMIT: i64 = 50;
 const SERVER_TABS: &[&str] = &[
     "Totals",
@@ -165,18 +165,12 @@ async fn show_server_stats(
             let cache = cache.clone();
             async move {
                 if page == 1 {
-                    let top_chatters = db
-                        .leaderboard(&key, crate::database::LeaderMetric::Messages, 8, 0)
-                        .await?;
-                    let top_killers = db
-                        .leaderboard(&key, crate::database::LeaderMetric::Kills, 8, 0)
-                        .await?;
-                    let top_deaths = db
-                        .leaderboard(&key, crate::database::LeaderMetric::Deaths, 8, 0)
-                        .await?;
-                    let top_kd = db
-                        .leaderboard(&key, crate::database::LeaderMetric::Kd, 8, 0)
-                        .await?;
+                    let (top_chatters, top_killers, top_deaths, top_kd) = tokio::try_join!(
+                        db.leaderboard(&key, crate::database::LeaderMetric::Messages, 8, 0),
+                        db.leaderboard(&key, crate::database::LeaderMetric::Kills, 8, 0),
+                        db.leaderboard(&key, crate::database::LeaderMetric::Deaths, 8, 0),
+                        db.leaderboard(&key, crate::database::LeaderMetric::Kd, 8, 0),
+                    )?;
                     return Ok(build_top_boards_embed(
                         &label,
                         &top_chatters,
@@ -213,14 +207,19 @@ async fn show_server_stats(
                         None,
                     ));
                 }
-                let current = db.window_stats(&key, days, None).await?;
-                let previous = match window.previous() {
-                    Some((since, until)) => {
-                        Some(db.window_stats(&key, Some(since), Some(until)).await?)
-                    }
-                    None => None,
-                };
-                let overall = db.overall_stats(&key).await?;
+                let previous_range = window.previous();
+                let (current, overall, previous) = tokio::try_join!(
+                    db.window_stats(&key, days, None),
+                    db.overall_stats(&key),
+                    async {
+                        match previous_range {
+                            Some((since, until)) => {
+                                Ok(Some(db.window_stats(&key, Some(since), Some(until)).await?))
+                            }
+                            None => Ok(None),
+                        }
+                    },
+                )?;
                 Ok(build_stats_overview_embed(
                     &label,
                     window_label,
@@ -339,9 +338,11 @@ async fn render_player_page(
     let window = RangeChoice::from_index(range_idx);
     let days = window.days();
     let window_label = window.label();
-    let stats = windowed_player_stats(db, key, lifetime, count_cache, window).await?;
     if page == 0 {
-        let online = db.is_online(key, display).await?.is_some();
+        let (stats, online) = tokio::try_join!(
+            windowed_player_stats(db, key, lifetime, count_cache, window),
+            async { Ok(db.is_online(key, display).await?.is_some()) },
+        )?;
         return Ok(build_player_overview_embed(
             &stats,
             window_label,
@@ -373,11 +374,17 @@ async fn render_player_page(
             PALETTE.join,
             "No joins in this window.",
         ),
-        _ => (
+        4 => (
             EventKind::Leave,
             format!("Last {LOG_LIMIT} Leaves by {display}"),
             PALETTE.leave,
             "No leaves in this window.",
+        ),
+        _ => (
+            EventKind::Advancement,
+            format!("Last {LOG_LIMIT} Advancements by {display}"),
+            PALETTE.advancement,
+            "No advancements in this window.",
         ),
     };
     if let std::collections::hash_map::Entry::Vacant(entry) = event_cache.entry((range_idx, page)) {
@@ -482,6 +489,7 @@ async fn load_player_events(
             db.player_join_leave(key, name, "leave", LOG_LIMIT, days)
                 .await?
         }
+        EventKind::Advancement => db.player_advancements(key, name, LOG_LIMIT, days).await?,
         _ => Vec::new(),
     })
 }

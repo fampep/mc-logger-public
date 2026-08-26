@@ -15,8 +15,7 @@ pub struct ChatRow {
     pub sender_label: Option<String>,
     pub subject_name: Option<String>,
     pub killer_name: Option<String>,
-    /// Chat/whisper: message body. Advancement: `[title]` or a historical full
-    /// line. Death/join/leave: empty — Discord rebuilds the display string.
+    /// Chat/whisper: message body. Death/join/leave: empty.
     pub plain_text: String,
     pub server_host: Option<String>,
 }

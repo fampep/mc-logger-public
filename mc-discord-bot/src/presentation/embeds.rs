@@ -479,6 +479,7 @@ pub fn build_player_overview_embed(
 \n\
 `Deaths:` **{}**\n\
 `PvP kills:` **{}**\n\
+`Advancements:` **{}**\n\
 \n\
 `Chat rank:` {rank}\n\
 `Join date:` {joined}\n\
@@ -490,6 +491,7 @@ pub fn build_player_overview_embed(
         fmt(stats.leaves as f64),
         fmt(stats.deaths as f64),
         fmt(stats.kills as f64),
+        fmt(stats.advancements as f64),
     );
     CreateEmbed::new()
         .colour(PALETTE.brand)

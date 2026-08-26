@@ -23,10 +23,10 @@ pub struct Data {
     pub db: Arc<Db>,
     pub bridges: Arc<BridgeSet>,
     pub started_at: Instant,
-    /// Ready events seen. The first one is this process starting up — the
-    /// startup notice covers that. Every later one is Discord having dropped us
-    /// and handed back a new session, which is what a channel wants to know.
+    /// Ready count; >0 means a reconnect, not startup.
     pub readys: std::sync::atomic::AtomicU32,
+    /// Restricted command channel, 0 = any channel.
+    pub command_channel: Arc<std::sync::atomic::AtomicU64>,
 }
 
 #[tokio::main]
@@ -58,6 +58,13 @@ async fn main() -> eyre::Result<()> {
     if reachable == 0 {
         eyre::bail!("No database is reachable. Check SERVER_*_URL / DATABASE_URL.");
     }
+
+    let command_channel = Arc::new(std::sync::atomic::AtomicU64::new(
+        db.get_command_channel()
+            .await?
+            .and_then(|id| id.parse().ok())
+            .unwrap_or(0),
+    ));
 
     let token = config.discord.token.clone();
     let intents = GatewayIntents::GUILDS;
@@ -97,9 +104,7 @@ async fn main() -> eyre::Result<()> {
                                 .await;
                         }
                     } else if let poise::FrameworkError::GuildOnly { ctx, .. } = error {
-                        // Admin commands are also `guild_only` specifically so this
-                        // fires instead of poise silently granting DM callers every
-                        // permission (it has no guild role to check there).
+                        // guild_only stops poise treating a DM as all-permissions-granted.
                         tracing::warn!(
                             "[commands] /{} refused: DM invocation is not allowed",
                             ctx.command().name
@@ -114,6 +119,27 @@ async fn main() -> eyre::Result<()> {
                                     .ephemeral(true),
                             )
                             .await;
+                    } else if let poise::FrameworkError::CommandCheckFailed { ctx, .. } = error {
+                        let required = ctx
+                            .data()
+                            .command_channel
+                            .load(std::sync::atomic::Ordering::Relaxed);
+                        if required != 0 {
+                            tracing::warn!(
+                                "[commands] /{} refused: used outside <#{required}>",
+                                ctx.command().name
+                            );
+                            let _ = ctx
+                                .send(
+                                    poise::CreateReply::default()
+                                        .embed(ui::failure(
+                                            "Wrong channel",
+                                            &format!("Commands only work in <#{required}>."),
+                                        ))
+                                        .ephemeral(true),
+                                )
+                                .await;
+                        }
                     } else if let poise::FrameworkError::MissingUserPermissions { ctx, .. } = error {
                         tracing::warn!(
                             "[commands] /{} refused: {} lacks Administrator",
@@ -138,12 +164,23 @@ async fn main() -> eyre::Result<()> {
                     }
                 })
             },
+            // Enforces /commandchannel; that command is exempt so admins can't lock themselves out.
+            command_check: Some(|ctx| {
+                Box::pin(async move {
+                    if ctx.command().qualified_name.starts_with("commandchannel") {
+                        return Ok(true);
+                    }
+                    let required = ctx
+                        .data()
+                        .command_channel
+                        .load(std::sync::atomic::Ordering::Relaxed);
+                    Ok(required == 0 || ctx.channel_id().get() == required)
+                })
+            }),
             event_handler: |_ctx, event, _framework, data| {
                 Box::pin(async move {
                     match event {
                         serenity::FullEvent::Ready { data_about_bot } => {
-                            // The handler sees the startup Ready as well as
-                            // reconnects; only the latter is news.
                             let seen = data
                                 .readys
                                 .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
@@ -160,8 +197,6 @@ async fn main() -> eyre::Result<()> {
                                 );
                             }
                         }
-                        // A resume replays what we missed on the same session,
-                        // so there is nothing for a channel to be told about.
                         serenity::FullEvent::Resume { .. } => {
                             tracing::info!("[discord] gateway session resumed");
                         }
@@ -175,9 +210,11 @@ async fn main() -> eyre::Result<()> {
         .setup({
             let config = config.clone();
             let db = db.clone();
+            let command_channel = command_channel.clone();
             move |ctx, ready, framework| {
                 let config = config.clone();
                 let db = db.clone();
+                let command_channel = command_channel.clone();
                 Box::pin(async move {
                     tracing::info!("[discord] logged in as {}", ready.user.name);
                     tracing::info!(
@@ -225,10 +262,6 @@ async fn main() -> eyre::Result<()> {
                     let presence_config = config.clone();
                     let presence_ctx = ctx.clone();
                     tokio::spawn(async move {
-                        // Discord's gateway presence-update limit is far looser
-                        // than the per-channel edit limit that bounds the topic
-                        // refresh above, so this can run much closer to "instant"
-                        // — 15s keeps comfortably under it while feeling live.
                         let mut interval = tokio::time::interval(Duration::from_secs(15));
                         loop {
                             interval.tick().await;
@@ -252,6 +285,7 @@ async fn main() -> eyre::Result<()> {
                         bridges,
                         started_at: Instant::now(),
                         readys: std::sync::atomic::AtomicU32::new(0),
+                        command_channel,
                     })
                 })
             }

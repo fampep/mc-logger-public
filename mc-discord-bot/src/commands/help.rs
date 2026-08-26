@@ -54,7 +54,13 @@ pub async fn help(ctx: Context<'_>) -> Result<(), Error> {
         ),
         (
             "Server".into(),
-            vec![("/database".into(), "stored totals and disk size".into())],
+            vec![
+                ("/database".into(), "stored totals and disk size".into()),
+                (
+                    "/commandchannel".into(),
+                    "restrict commands to one channel (needs Administrator)".into(),
+                ),
+            ],
         ),
     ];
     if ctx.data().config.multi_server() {
